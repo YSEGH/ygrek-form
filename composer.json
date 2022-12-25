@@ -1,0 +1,15 @@
+{
+  "name": "youssef/ygrek-form",
+  "autoload": {
+    "psr-4": {
+      "YgrekForm\\": "classes/"
+    }
+  },
+  "authors": [
+    {
+      "name": "youssef",
+      "email": "youssef.segh@hotmail.fr"
+    }
+  ],
+  "require": {}
+}
