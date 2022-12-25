@@ -62,7 +62,10 @@ const FormRow = ({ row_index, cols }) => {
       data-row={row_index}
       onDragEnd={onDragEndHandler}
       onDragEnter={onDragEnterHandler}
-      onDragOver={(e) => e.preventDefault()}
+      onDragOver={(e) => {
+        e.preventDefault();
+        onDragEnterHandler();
+      }}
     >
       <div className="ygrek_form_admin--col_container">
         {cols.map((col) => (

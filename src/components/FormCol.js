@@ -76,7 +76,10 @@ const FormCol = ({ col }) => {
       onDragEnter={onDragEnterHandler}
       onDragLeave={onDragLeaveHandler}
       onDragEnd={onDragEndHandler}
-      onDragOver={(e) => e.preventDefault()}
+      onDragOver={(e) => {
+        e.preventDefault();
+        onDragEnterHandler();
+      }}
       onClick={onClickHandler}
     >
       <h4>{col.col_id}</h4>
