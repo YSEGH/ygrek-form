@@ -15,8 +15,8 @@
 .ygrek_form_admin--form_container
   .ygrek_form_admin--row_container
   .ygrek_form_admin--row {
-  height: 176px;
-  width: 450px;
+  height: 192px;
+  width: 501px;
   background-color: rgb(21, 0, 255);
   display: flex;
   align-items: center;
@@ -36,8 +36,8 @@
   .ygrek_form_admin--row
   .ygrek_form_admin--col_container {
   height: 100%;
-  width: 420px;
-  background-color: red;
+  width: 471px;
+  background-color: #ffffff;
   display: flex;
 }
 .ygrek_form_admin--form_container
@@ -48,13 +48,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   height: 164px;
   width: 128px;
   margin: 6px;
   cursor: grab;
-  background-color: green;
-  transition: 0.25s;
+  background-color: rgb(228, 228, 228, 0.3);
+  transition: 0.25s width;
+  padding: 0.5rem;
+  border-radius: 5px;
 }
 .ygrek_form_admin--form_container
   .ygrek_form_admin--row_container
@@ -62,7 +64,6 @@
   .ygrek_form_admin--col_container
   .ygrek_form_admin--col
   input {
-  width: 2rem;
 }
 .ygrek_form_admin--form_container
   .ygrek_form_admin--row_container

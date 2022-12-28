@@ -7,7 +7,7 @@ import {
   moveCol,
   rowIsDraggedOver,
 } from "../actions/actions";
-import FormCol from "./FormCol";
+import Col from "./Col";
 
 const FormRow = ({ row_index, cols }) => {
   const { colDragged, colDraggedOver, rowDraggedOver } = useSelector(
@@ -69,7 +69,7 @@ const FormRow = ({ row_index, cols }) => {
     >
       <div className="ygrek_form_admin--col_container">
         {cols.map((col) => (
-          <FormCol key={col.col_id} col={col} />
+          <Col key={col.col_id} col={col} />
         ))}
       </div>
       <button

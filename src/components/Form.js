@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addRow, setFormID } from "../actions/actions";
-import FormRow from "./FormRow";
+import Row from "./Row";
 import Modal from "./Modal";
 
 const Form = () => {
@@ -41,7 +41,7 @@ const Form = () => {
         </div>
         <div className="ygrek_form_admin--row_container">
           {rows.map((row) => (
-            <FormRow
+            <Row
               key={row.row_index}
               row_index={row.row_index}
               cols={row.cols}

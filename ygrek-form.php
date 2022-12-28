@@ -49,7 +49,7 @@ class YgrekForm
     function enqueue_files()
     {
         wp_enqueue_script('ygrek-form-jsx', plugin_dir_url(__FILE__) . '/dist/bundle.js', array('jquery', 'wp-element'), time(), true);
-        wp_enqueue_style('ygrek-form-style', plugin_dir_url(__FILE__) . '/assets/css/admin-ajouter.css', null, '1');
+        wp_enqueue_style('ygrek-form-style', plugin_dir_url(__FILE__) . '/assets/css/style.css', null, '1');
     }
     function create_table()
     {

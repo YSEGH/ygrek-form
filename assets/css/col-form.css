@@ -1,0 +1,39 @@
+.ygrek_form_admin--col_form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.ygrek_form_admin--col_form .form_group {
+}
+.ygrek_form_admin--col_form .form_group.form_group--select {
+  margin-bottom: 1.5rem;
+}
+.ygrek_form_admin--col_form .form_group.form_group--checkbox {
+  display: flex;
+}
+.ygrek_form_admin--col_form .form_group label {
+  display: block;
+  font-weight: 600;
+  color: #50adff;
+  margin-bottom: 0.25rem;
+}
+.ygrek_form_admin--col_form input,
+.ygrek_form_admin--col_form select,
+.ygrek_form_admin--col_form textarea {
+  font-weight: 300;
+  outline: none;
+}
+.ygrek_form_admin--col_form input:focus,
+.ygrek_form_admin--col_form select:focus,
+.ygrek_form_admin--col_form textarea:focus {
+  box-shadow: none;
+}
+.ygrek_form_admin--col_form
+  .form_group.form_group--checkbox
+  input[type="checkbox"] {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin: 0;
+  margin-left: 0.5rem;
+}

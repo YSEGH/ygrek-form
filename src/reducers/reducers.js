@@ -84,6 +84,17 @@ const formReducer = (
                     col_id: action.data.col_id,
                     row_index: action.data.row_index,
                     col_index: action.data.col_index,
+                    for: null,
+                    label: null,
+                    custom_class_label: [],
+                    field: null,
+                    html_element: null,
+                    input_type: null,
+                    custom_class_field: [],
+                    options: [],
+                    type: null,
+                    required: false,
+                    placeholder: null,
                   },
                 ],
               }
@@ -108,7 +119,17 @@ const formReducer = (
       newState = { ...state, rows: rows };
       return newState;
     case "UPDATE_COL":
-      return {};
+      rows = state.rows;
+      console.log("action.data.values", action.data.values);
+      for (const property in action.data.values) {
+        rows[action.data.row_index].cols[action.data.col_index][property] =
+          action.data.values[property];
+      }
+
+      newState = { ...state, rows: rows };
+
+      console.log(newState.rows);
+      return newState;
     case "COL_IS_DRAGGED":
       newState = { ...state, colDragged: action.data };
       return newState;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setColActive,
@@ -8,6 +8,7 @@ import {
   moveCol,
   openModal,
 } from "../actions/actions";
+import ColForm from "./ColForm";
 
 const FormCol = ({ col }) => {
   const { colDragged, colDraggedOver } = useSelector((state) => state.form);
@@ -65,6 +66,10 @@ const FormCol = ({ col }) => {
     );
   };
 
+  useEffect(() => {
+    return () => {};
+  }, [col]);
+
   return (
     <div
       className={col.classname.join(" ")}
@@ -80,19 +85,29 @@ const FormCol = ({ col }) => {
         e.preventDefault();
         onDragEnterHandler();
       }}
-      onClick={onClickHandler}
     >
-      <h4>{col.col_id}</h4>
-      <h4>{col.col_index}</h4>
-      <button
-        type="button"
-        className="ygrek_form_admin--remove_col_button"
-        data-row={col.row_index}
-        data-col={col.col_index}
-        onClick={() => onDeleteHandler()}
-      >
-        Delete
-      </button>
+      <ColForm col={col} />
+      <div className="ygrek_form_admin--col_button_container">
+        <button
+          type="button"
+          className="ygrek_form_admin--edit_col_button"
+          data-row={col.row_index}
+          data-col={col.col_index}
+          onClick={onClickHandler}
+          disabled={col.field == null}
+        >
+          Edit
+        </button>
+        <button
+          type="button"
+          className="ygrek_form_admin--remove_col_button"
+          data-row={col.row_index}
+          data-col={col.col_index}
+          onClick={onDeleteHandler}
+        >
+          Delete
+        </button>
+      </div>
     </div>
   );
 };

@@ -7,7 +7,7 @@ const openModal = (data) => (dispatch) => {
   dispatch({ type: "OPEN_MODAL", data: data });
 };
 const closeModal = (data) => (dispatch) => {
-  dispatch({ type: "OPEN_MODAL", data: data });
+  dispatch({ type: "CLOSE_MODAL", data: data });
 };
 const setColActive = (data) => (dispatch) => {
   dispatch({ type: "SET_COL_ACTIVE", data: data });
