@@ -62,7 +62,7 @@ const ColForm = ({ col }) => {
   };
   return (
     <div className="ygrek_form_admin--col_form">
-      <div className="form_group form_group--select">
+      <div className="form_input form_input--select">
         <label>Type</label>
         <select
           defaultValue={"vide"}
@@ -71,6 +71,9 @@ const ColForm = ({ col }) => {
           <option value={"vide"}>Vide</option>
           <option value={"nom"}>Nom</option>
           <option value={"prenom"}>Prénom</option>
+          <option value={"date"}>Date</option>
+          <option value={"color"}>color</option>
+          <option value={"fichier"}>Fichier</option>
           <option value={"texte_court"}>Texte court</option>
           <option value={"liste"}>Liste</option>
           <option value={"telephone"}>Téléphone</option>
@@ -80,7 +83,7 @@ const ColForm = ({ col }) => {
           <option value={"texte_long"}>Texte long</option>
         </select>
       </div>
-      <div className="form_group form_group--checkbox">
+      <div className="form_input form_input--checkbox">
         <label>Requis ? </label>
         <input
           type={"checkbox"}

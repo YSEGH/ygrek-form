@@ -94,7 +94,7 @@ const FormCol = ({ col }) => {
           data-row={col.row_index}
           data-col={col.col_index}
           onClick={onClickHandler}
-          disabled={col.field == null}
+          /* disabled={col.field == null} */
         >
           Edit
         </button>
