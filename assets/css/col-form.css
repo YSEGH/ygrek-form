@@ -1,4 +1,5 @@
 .ygrek_form_admin--col_form {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

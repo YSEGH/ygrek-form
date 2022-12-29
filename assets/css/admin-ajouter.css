@@ -43,7 +43,7 @@
   .ygrek_form_admin--row_container
   .ygrek_form_admin--row
   .ygrek_form_admin--col_container
-  .ygrek_form_admin--col {
+  .ygrek_form--col {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -58,30 +58,23 @@
   border-radius: 5px;
 }
 .ygrek_form_admin--form_container
+.ygrek_form_admin--row_container
+.ygrek_form_admin--row
+.ygrek_form_admin--col_container
+.ygrek_form--col.dragged_over {
+  background-color: #00a0d2;
+}
+.ygrek_form_admin--form_container
+.ygrek_form_admin--row_container
+.ygrek_form_admin--row
+.ygrek_form_admin--col_container
+.ygrek_form--col.dragged_over *{
+  pointer-events: none;
+}
+.ygrek_form_admin--form_container
   .ygrek_form_admin--row_container
   .ygrek_form_admin--row
   .ygrek_form_admin--col_container
   .ygrek_form_admin--col
   input {
-}
-.ygrek_form_admin--form_container
-  .ygrek_form_admin--row_container
-  .ygrek_form_admin--row
-  .ygrek_form_admin--col_container
-  .ygrek_form_admin--col.ygrek_form_admin--col_12 {
-  width: 100%;
-}
-.ygrek_form_admin--form_container
-  .ygrek_form_admin--row_container
-  .ygrek_form_admin--row
-  .ygrek_form_admin--col_container
-  .ygrek_form_admin--col.ygrek_form_admin--col_6 {
-  width: 50%;
-}
-.ygrek_form_admin--form_container
-  .ygrek_form_admin--row_container
-  .ygrek_form_admin--row
-  .ygrek_form_admin--col_container
-  .ygrek_form_admin--col.ygrek_form_admin--col_4 {
-  width: 33.33%;
 }

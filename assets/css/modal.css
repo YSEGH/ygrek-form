@@ -12,7 +12,9 @@
 }
 .ygrek_form_admin--modal_overlay .ygrek_form_admin--modal_content {
   position: fixed;
-  height: 400px;
+  height: fit-content;
+  max-height: 90vh;
+  overflow: auto;
   width: 450px;
   background-color: rgb(255, 255, 255);
   border-radius: 10px;
@@ -28,13 +30,28 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid lightgray;
 }
-
+.ygrek_form_admin--modal_overlay
+.ygrek_form_admin--modal_content
+.ygrek_form_admin--modal_header h1{
+  margin: 0;
+}
 .ygrek_form_admin--modal_overlay
   .ygrek_form_admin--modal_content
-  .ygrek_form_admin--form_container {
+  .ygrek_form_admin--modal_body {
+  padding: .5rem 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
+}
+.ygrek_form_admin--modal_overlay
+.ygrek_form_admin--modal_content
+.ygrek_form_admin--modal_footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
 }

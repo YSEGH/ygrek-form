@@ -6,7 +6,7 @@ import Modal from "./Modal";
 
 const Form = () => {
   const dispatch = useDispatch();
-  let { form_id, rows, modal, active_col, success, error } = useSelector(
+  let { form_id, rows, modal, active_col, success, error, colDragged, colDraggedOver } = useSelector(
     (state) => state.form
   );
 
@@ -18,7 +18,10 @@ const Form = () => {
     dispatch(addRow({ row_index: row_index }));
   };
 
+
+
   useEffect(() => {
+
     return () => {};
   }, [rows]);
 
@@ -30,14 +33,24 @@ const Form = () => {
         id="ygrek_form_admin--ajouter"
         method="post"
       >
-        <div className="ygrek_form_admin--form_group">
-          <label htmlFor="form_id">Form ID</label>
-          <input
-            type="text"
-            name="form_id"
-            onChange={setFormIDHandler}
-            value={form_id}
-          />
+        <div className="form_group">
+          <div className="form_input form_input--col-6">
+            <label htmlFor="form_id">Form ID</label>
+            <input
+                type="text"
+                name="form_id"
+                onChange={setFormIDHandler}
+                value={form_id}
+            />
+            <p></p>
+          </div>
+          <div className="form_input form_input--col-6">
+            <label htmlFor="theme">Theme</label>
+            <select name="theme">
+              <option value="basic">Basique</option>
+            </select>
+            <p></p>
+          </div>
         </div>
         <div className="ygrek_form_admin--row_container">
           {rows.map((row) => (

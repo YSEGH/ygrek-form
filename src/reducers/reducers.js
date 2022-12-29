@@ -1,31 +1,11 @@
 const formReducer = (
   state = {
     form_id: "",
+    theme: "",
     rows: [
       {
         row_index: 0,
         cols: [
-          {
-            classname: ["ygrek_form_admin--col", "ygrek_form_admin--col_4"],
-            col_id: "deb9c09e-8d7b-495c-8803-b4b56cb47b67",
-            row_index: 0,
-            col_index: 0,
-            options: ["test", "azertty"],
-          },
-          {
-            classname: ["ygrek_form_admin--col", "ygrek_form_admin--col_4"],
-            col_id: "0669a828-4799-4a2c-a8e1-787ae4179193",
-            row_index: 0,
-            col_index: 1,
-            options: ["test", "azertty"],
-          },
-          {
-            classname: ["ygrek_form_admin--col", "ygrek_form_admin--col_4"],
-            col_id: "778eabe7-e873-4d08-9556-37d8f8264a6a",
-            row_index: 0,
-            col_index: 2,
-            options: ["test", "azertty"],
-          },
         ],
       },
     ],
@@ -83,21 +63,22 @@ const formReducer = (
                 cols: [
                   ...row.cols,
                   {
-                    classname: ["ygrek_form_admin--col"],
+                    classname: ["ygrek_form--col", "form_input"],
+                    custom_class_field: [],
                     col_id: action.data.col_id,
                     row_index: action.data.row_index,
                     col_index: action.data.col_index,
-                    for: null,
-                    label: null,
+                    for: "",
+                    label: "",
                     custom_class_label: [],
-                    field: null,
-                    html_element: null,
+                    input: "vide",
+                    input_element: null,
                     input_type: null,
-                    custom_class_field: [],
+                    default_value: "",
+                    custom_class_input: [],
                     options: [],
-                    type: null,
                     required: false,
-                    placeholder: null,
+                    placeholder: "",
                   },
                 ],
               }
@@ -123,14 +104,11 @@ const formReducer = (
       return newState;
     case "UPDATE_COL":
       rows = state.rows;
-      console.log("action.data.values", action.data.values);
       for (const property in action.data.values) {
         rows[action.data.row_index].cols[action.data.col_index][property] =
           action.data.values[property];
       }
-
       newState = { ...state, rows: rows };
-
       console.log(newState.rows);
       return newState;
     case "COL_IS_DRAGGED":
@@ -138,6 +116,7 @@ const formReducer = (
       return newState;
     case "COL_IS_DRAGGED_OVER":
       newState = { ...state, colDraggedOver: action.data };
+      console.log(newState.colDraggedOver);
       return newState;
     case "ROW_IS_DRAGGED_OVER":
       newState = { ...state, rowDraggedOver: action.data };
@@ -199,19 +178,19 @@ Array.prototype.move = function (from, to) {
 Array.prototype.reorderColIndex = function () {
   for (let i = 0; i < this.length; i++) {
     const classnames = [
-      "ygrek_form_admin--col_4",
-      "ygrek_form_admin--col_6",
-      "ygrek_form_admin--col_12",
+      "form_input--col-4",
+      "form_input--col-6",
+      "form_input--col-12",
     ];
     let classname = "";
     let col_number = this[i].cols.length;
 
     if (col_number == 1) {
-      classname = "ygrek_form_admin--col_12";
+      classname = "form_input--col-12";
     } else if (col_number == 2) {
-      classname = "ygrek_form_admin--col_6";
+      classname = "form_input--col-6";
     } else if (col_number == 3) {
-      classname = "ygrek_form_admin--col_4";
+      classname = "form_input--col-4";
     }
     for (let k = 0; k < this[i].cols.length; k++) {
       console.log("this", this);

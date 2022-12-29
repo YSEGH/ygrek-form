@@ -24,21 +24,26 @@ const FormCol = ({ col }) => {
     );
   };
 
-  const onDragEnterHandler = () => {
-    dispatch(
-      colIsDraggedOver({
-        col_id: col.col_id,
-        row_index: col.row_index,
-        col_index: col.col_index,
-      })
-    );
+  const onDragEnterHandler = (e) => {
+    console.log('colDragged.col_id', colDragged.col_id)
+    console.log('E', e)
+    console.log('e.target.dataset.id', e.target.dataset.id.split('col-')[1])
+    if (colDragged.col_id !== e.target.dataset.id){
+      dispatch(
+          colIsDraggedOver({
+            col_id: col.col_id,
+            row_index: col.row_index,
+            col_index: col.col_index,
+          })
+      );
+    }
   };
 
-  const onDragLeaveHandler = () => {
+  const onDragLeaveHandler = (e) => {
     dispatch(colIsDraggedOver(null));
   };
 
-  const onDragEndHandler = () => {
+  const onDragEndHandler = (e) => {
     if (colDragged && colDraggedOver) {
       if (colDragged.col_id !== colDraggedOver.col_id) {
         dispatch(
@@ -48,9 +53,27 @@ const FormCol = ({ col }) => {
             to: colDraggedOver,
           })
         );
+        removeColDraggedOverBackground();
       }
     }
   };
+
+  const addColDraggedOverBackground = () => {
+    if (colDraggedOver && Object.keys(colDraggedOver).length > 0){
+      let col = document.querySelector(`[data-id="col-${colDraggedOver.col_id}"]`);
+      col.classList.add('dragged_over');
+    } else {
+      removeColDraggedOverBackground();
+    }
+
+  }
+
+  const removeColDraggedOverBackground = () => {
+    let cols = document.getElementsByClassName('dragged_over');
+    for (const col of cols) {
+      col.classList.remove('dragged_over');
+    }
+  }
 
   const onClickHandler = () => {
     dispatch(setColActive(col));
@@ -67,8 +90,9 @@ const FormCol = ({ col }) => {
   };
 
   useEffect(() => {
+    addColDraggedOverBackground();
     return () => {};
-  }, [col]);
+  }, [col, colDraggedOver]);
 
   return (
     <div
@@ -76,6 +100,7 @@ const FormCol = ({ col }) => {
       data-type="input"
       data-row={col.row_index}
       data-col={col.col_index}
+      data-id={`col-${col.col_id}`}
       draggable
       onDragStart={onDragStartHandler}
       onDragEnter={onDragEnterHandler}
@@ -83,7 +108,7 @@ const FormCol = ({ col }) => {
       onDragEnd={onDragEndHandler}
       onDragOver={(e) => {
         e.preventDefault();
-        onDragEnterHandler();
+        onDragEnterHandler(e);
       }}
     >
       <ColForm col={col} />
@@ -94,7 +119,7 @@ const FormCol = ({ col }) => {
           data-row={col.row_index}
           data-col={col.col_index}
           onClick={onClickHandler}
-          /* disabled={col.field == null} */
+          disabled={col.input === "vide"}
         >
           Edit
         </button>
