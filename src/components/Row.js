@@ -1,48 +1,46 @@
 import React, { useEffect } from "react";
 import { v4 as uuid } from "uuid";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addCol,
-  colIsDraggedOver,
-  moveCol,
-  rowIsDraggedOver,
-} from "../actions/actions";
+import { addCol, moveCol, rowIsDraggedOver } from "../actions/actions";
 import Col from "./Col";
 
-const FormRow = ({ row_index, cols }) => {
+const Row = ({ row }) => {
   const { colDragged, colDraggedOver, rowDraggedOver } = useSelector(
     (state) => state.form
   );
   const dispatch = useDispatch();
 
   const addColHandler = () => {
-    let col_index = cols.length;
+    let col_index = row.cols.length;
     const col_id = uuid();
     if (col_index < 3) {
       dispatch(
         addCol({
           col_id: col_id,
-          row_index: row_index,
+          row_index: row.row_index,
           col_index: col_index,
         })
       );
     }
   };
-  const onDragEnterHandler = () => {
-    if (colDragged.row_index !== row_index) {
-      dispatch(
-        rowIsDraggedOver({
-          row_index: row_index,
-        })
-      );
+
+  /* ROW */
+  const onDragEnterRowHandler = (e, row_id, row_index) => {
+    if (colDragged) {
+      if (colDragged.row_index !== row_index) {
+        dispatch(
+          rowIsDraggedOver({
+            row_index: row_index,
+          })
+        );
+      }
     }
   };
-  const onDragEndHandler = () => {
-    console.log("colDragged", colDragged);
-    console.log("rowDraggedOver", rowDraggedOver);
-    console.log("colDraggedOver", colDraggedOver);
+
+  const onDragLeaveRowHandler = (e, row_id) => {};
+
+  const onDragEndRowHandler = (e) => {
     if (colDragged && rowDraggedOver && !colDraggedOver) {
-      console.log("container is true");
       dispatch(
         moveCol({
           from: colDragged,
@@ -54,21 +52,38 @@ const FormRow = ({ row_index, cols }) => {
 
   useEffect(() => {
     return () => {};
-  }, [cols]);
+  }, [row]);
 
   return (
     <div
-      className="ygrek_form_admin--row"
-      data-row={row_index}
-      onDragEnd={onDragEndHandler}
-      onDragEnter={onDragEnterHandler}
-      onDragOver={(e) => {
-        e.preventDefault();
-        onDragEnterHandler();
-      }}
+      key={row.row_id}
+      className={row.classname.join(" ")}
+      data-row={row.row_index}
+      data-row-id={row.row_id}
+      onDragEnter={
+        row.cols.length === 0
+          ? (e) => onDragEnterRowHandler(e, row.row_id, row.row_index)
+          : undefined
+      }
+      onDragLeave={
+        row.cols.length === 0
+          ? (e) => onDragLeaveRowHandler(e, row.row_id)
+          : undefined
+      }
+      onDragEnd={
+        row.cols.length > 0 ? (e) => onDragEndRowHandler(e) : undefined
+      }
+      onDragOver={
+        row.cols.length === 0
+          ? (e) => {
+              e.preventDefault();
+              onDragEnterRowHandler(e, row.row_id, row.row_index);
+            }
+          : undefined
+      }
     >
       <div className="ygrek_form_admin--col_container">
-        {cols.map((col) => (
+        {row.cols.map((col) => (
           <Col key={col.col_id} col={col} />
         ))}
       </div>
@@ -76,7 +91,7 @@ const FormRow = ({ row_index, cols }) => {
         type="button"
         className="ygrek_form_admin--add_col_button"
         onClick={addColHandler}
-        data-row={row_index}
+        data-row={row.row_index}
       >
         +
       </button>
@@ -84,4 +99,4 @@ const FormRow = ({ row_index, cols }) => {
   );
 };
 
-export default FormRow;
+export default Row;

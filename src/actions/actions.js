@@ -1,5 +1,8 @@
 import axios from "axios";
 
+const dragging = (data) => (dispatch) => {
+  dispatch({ type: "DRAGGING", data: data });
+};
 const setFormID = (data) => (dispatch) => {
   dispatch({ type: "SET_FORM_ID", data: data });
 };
@@ -52,6 +55,7 @@ const resetForm = () => (dispatch) => {
   dispatch({ type: "RESET_FORM" });
 };
 export {
+  dragging,
   setFormID,
   setColActive,
   openModal,

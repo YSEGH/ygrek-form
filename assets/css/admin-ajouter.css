@@ -16,11 +16,12 @@
   .ygrek_form_admin--row {
   height: 192px;
   width: 501px;
-  background-color: rgb(21, 0, 255);
+  background-color: rgb(126, 115, 237);
   display: flex;
   align-items: center;
   position: relative;
 }
+
 /* Button add */
 .ygrek_form_admin--form_container
   .ygrek_form_admin--row_container
@@ -36,8 +37,14 @@
   .ygrek_form_admin--col_container {
   height: 100%;
   width: 471px;
-  background-color: #ffffff;
+  background-color: #cf7272;
   display: flex;
+}
+.ygrek_form_admin--form_container.dragging
+  .ygrek_form_admin--row_container
+  .ygrek_form_admin--row.dragged_hover
+  .ygrek_form_admin--col_container {
+  background-color: #7293cf;
 }
 .ygrek_form_admin--form_container
   .ygrek_form_admin--row_container
@@ -51,26 +58,45 @@
   height: 164px;
   width: 128px;
   margin: 6px;
-  cursor: grab;
+  cursor: pointer;
   background-color: rgb(228, 228, 228, 0.3);
   transition: 0.25s width;
   padding: 0.5rem;
   border-radius: 5px;
+  pointer-events: all;
 }
-.ygrek_form_admin--form_container
-.ygrek_form_admin--row_container
-.ygrek_form_admin--row
-.ygrek_form_admin--col_container
-.ygrek_form--col.dragged_over {
+.ygrek_form_admin--form_container.dragging
+  .ygrek_form_admin--row_container
+  .ygrek_form_admin--row
+  .ygrek_form_admin--col_container
+  .ygrek_form--col.dragged_hover {
   background-color: #00a0d2;
 }
 .ygrek_form_admin--form_container
-.ygrek_form_admin--row_container
-.ygrek_form_admin--row
-.ygrek_form_admin--col_container
-.ygrek_form--col.dragged_over *{
+  .ygrek_form_admin--row_container
+  .ygrek_form_admin--row
+  .ygrek_form_admin--col_container
+  .ygrek_form--col
+  * {
+  pointer-events: all;
+}
+/* .ygrek_form_admin--form_container
+  .ygrek_form_admin--row_container
+  .ygrek_form_admin--row
+  .ygrek_form_admin--col_container
+  .ygrek_form--col
+  label {
+  pointer-events: none;
+} */
+.ygrek_form_admin--form_container.dragging
+  .ygrek_form_admin--row_container
+  .ygrek_form_admin--row
+  .ygrek_form_admin--col_container
+  .ygrek_form--col
+  * {
   pointer-events: none;
 }
+
 .ygrek_form_admin--form_container
   .ygrek_form_admin--row_container
   .ygrek_form_admin--row

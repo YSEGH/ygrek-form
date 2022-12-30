@@ -1,7 +1,7 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { updateCol } from "../actions/actions";
-import {v4 as uuid} from "uuid";
+import { v4 as uuid } from "uuid";
 
 const ColForm = ({ col }) => {
   const dispatch = useDispatch();
@@ -11,7 +11,7 @@ const ColForm = ({ col }) => {
     // Récupération du type d'input
     if (property === "input") {
       values = getFieldType(value);
-      values['for'] = `${values["input"]}-${uuid()}`
+      values["for"] = `${values["input"]}-${uuid()}`;
     }
     if (property === "required") {
       values["required"] = value;
@@ -82,16 +82,9 @@ const ColForm = ({ col }) => {
 
   return (
     <div className="ygrek_form_admin--col_form form_group">
-      <div className="form_input form_input--select">
-        <label
-          // onDragEnter={(e) => e.preventDefault()}
-          // onDragOver={(e) => e.preventDefault()}
-        >
-          Type
-        </label>
+      {/* <div className="form_input form_input--select">
+        <label>Type</label>
         <select
-          // onDragEnter={(e) => e.preventDefault()}
-          // onDragOver={(e) => e.preventDefault()}
           defaultValue={col.input}
           onChange={(e) => onChangeHandler("input", e.target.value)}
         >
@@ -109,23 +102,17 @@ const ColForm = ({ col }) => {
           <option value={"radio"}>Radio</option>
           <option value={"texte_long"}>Texte long</option>
         </select>
-      </div>
-      {
-        col.input !== "vide" &&
+      </div> */}
+      {col.input !== "vide" && (
         <div className="form_input form_input--checkbox">
-          <label
-              // onDragEnter={(e) => e.preventDefault()}
-              // onDragOver={(e) => e.preventDefault()}
-          >Requis ? </label>
+          <label>Requis ?</label>
           <input
-              // onDragEnter={(e) => e.preventDefault()}
-              // onDragOver={(e) => e.preventDefault()}
-              type={"checkbox"}
-              defaultChecked={col.required}
-              onChange={(e) => onChangeHandler("required", e.target.checked)}
+            type={"checkbox"}
+            defaultChecked={col.required}
+            onChange={(e) => onChangeHandler("required", e.target.checked)}
           />
         </div>
-      }
+      )}
     </div>
   );
 };

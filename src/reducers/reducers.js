@@ -1,28 +1,105 @@
+import { v4 as uuid } from "uuid";
+
 const formReducer = (
   state = {
     form_id: "",
     theme: "",
     rows: [
       {
+        classname: ["ygrek_form_admin--row"],
+        row_id: uuid(),
         row_index: 0,
         cols: [
+          {
+            classname: ["ygrek_form--col", "form_input"],
+            custom_class_field: [],
+            col_id: uuid(),
+            row_index: 0,
+            col_index: 0,
+            for: "",
+            label: "",
+            custom_class_label: [],
+            input: "vide",
+            input_element: null,
+            input_type: null,
+            default_value: "",
+            custom_class_input: [],
+            options: [],
+            required: false,
+            placeholder: "",
+          },
+          {
+            classname: ["ygrek_form--col", "form_input"],
+            custom_class_field: [],
+            col_id: uuid(),
+            row_index: 0,
+            col_index: 1,
+            for: "",
+            label: "",
+            custom_class_label: [],
+            input: "vide",
+            input_element: null,
+            input_type: null,
+            default_value: "",
+            custom_class_input: [],
+            options: [],
+            required: false,
+            placeholder: "",
+          },
+          {
+            classname: ["ygrek_form--col", "form_input"],
+            custom_class_field: [],
+            col_id: uuid(),
+            row_index: 0,
+            col_index: 2,
+            for: "",
+            label: "",
+            custom_class_label: [],
+            input: "vide",
+            input_element: null,
+            input_type: null,
+            default_value: "",
+            custom_class_input: [],
+            options: [],
+            required: false,
+            placeholder: "",
+          },
         ],
       },
+      {
+        classname: ["ygrek_form_admin--row"],
+        row_id: uuid(),
+        row_index: 1,
+        cols: [],
+      },
+      {
+        classname: ["ygrek_form_admin--row"],
+        row_id: uuid(),
+        row_index: 2,
+        cols: [],
+      },
     ],
+    dragging: false,
     active_col: {},
     modal: false,
     loading: false,
     success: null,
     error: null,
-    colDragged: {},
-    colDraggedOver: {},
-    rowDraggedOver: {},
+    colDragged: null,
+    colDraggedOver: null,
+    rowDraggedOver: null,
   },
   action
 ) => {
   switch (action.type) {
-    case "SET_FORM_ID":
+    case "DRAGGING":
       let newState = {
+        ...state,
+        dragging: action.data,
+      };
+      return newState;
+    case "SET_FORM_ID":
+      newState = {
         ...state,
         form_id: action.data.form_id,
       };
@@ -49,7 +126,15 @@ const formReducer = (
     case "ADD_ROW":
       newState = {
         ...state,
-        rows: [...state.rows, { row_index: action.data.row_index, cols: [] }],
+        rows: [
+          ...state.rows,
+          {
+            classname: ["ygrek_form_admin--row"],
+            row_id: action.data.row_id,
+            row_index: action.data.row_index,
+            cols: [],
+          },
+        ],
       };
       return newState;
     case "DELETE_ROW":
@@ -109,27 +194,46 @@ const formReducer = (
           action.data.values[property];
       }
       newState = { ...state, rows: rows };
-      console.log(newState.rows);
-      return newState;
+      /*       console.log(newState.rows);
+       */ return newState;
     case "COL_IS_DRAGGED":
-      newState = { ...state, colDragged: action.data };
+      rows = state.rows.removeOnDragClass();
+      newState = { ...state, rows: rows, colDragged: action.data };
       return newState;
     case "COL_IS_DRAGGED_OVER":
-      newState = { ...state, colDraggedOver: action.data };
-      console.log(newState.colDraggedOver);
+      rows = state.rows.removeOnDragClass(true);
+      newState = {
+        ...state,
+        rows: rows,
+        colDraggedOver: action.data,
+      };
+      if (action.data) {
+        newState.rows[action.data.row_index].cols[
+          action.data.col_index
+        ].classname.push("dragged_hover");
+      }
       return newState;
     case "ROW_IS_DRAGGED_OVER":
-      newState = { ...state, rowDraggedOver: action.data };
+      rows = state.rows.removeOnDragClass();
+      newState = {
+        ...state,
+        rows: rows,
+        rowDraggedOver: action.data,
+      };
+      if (action.data) {
+        newState.rows[action.data.row_index].classname.push("dragged_hover");
+      }
       return newState;
     case "MOVE_COL":
       newState = {
         ...state,
-        rows: state.rows.move(action.data.from, action.data.to),
+        rows: state.rows
+          .move(action.data.from, action.data.to)
+          .removeOnDragClass(true),
+        colDragged: null,
+        colDraggedOver: null,
+        rowDraggedOver: null,
       };
-      state.colDragged = null;
-      state.colDraggedOver = null;
-      state.rowDraggedOver = null;
-      console.log("MOVE_COL", newState.rows);
       return newState;
     case "SAVE_FORM_REQUEST":
       return { loading: true };
@@ -144,13 +248,29 @@ const formReducer = (
   }
 };
 
+Array.prototype.removeOnDragClass = function (recursive = false) {
+  for (let i = 0; i < this.length; i++) {
+    const row = this[i];
+    if (row.classname.includes("dragged_hover")) {
+      this[i].classname = row.classname.filter(
+        (classname) => classname !== "dragged_hover"
+      );
+    }
+    if (recursive) {
+      for (let k = 0; k < row.cols.length; k++) {
+        const col = row.cols[k];
+        if (col.classname.includes("dragged_hover")) {
+          this[i].cols[k].classname = col.classname.filter(
+            (classname) => classname !== "dragged_hover"
+          );
+        }
+      }
+    }
+  }
+  return this;
+};
+
 Array.prototype.move = function (from, to) {
-  console.log("FROM", from);
-  console.log("TO", to);
-  console.log(
-    "this[to.row_index].cols",
-    JSON.parse(JSON.stringify(this[to.row_index].cols))
-  );
   // Si le nombre de colonnes est inférieure à trois sur la ligne ciblée,
   // on ajoute la colonne à cette ligne.
   let col_from_items = this[from.row_index].cols;
@@ -158,7 +278,6 @@ Array.prototype.move = function (from, to) {
   let from_item = this[from.row_index].cols[from.col_index];
 
   if (this[to.row_index].cols.length < 3 && from.row_index !== to.row_index) {
-    console.log("if");
     col_to_items.push(from_item);
     this[to.row_index].cols = col_to_items;
     this[from.row_index].cols = col_from_items.filter(
@@ -166,8 +285,6 @@ Array.prototype.move = function (from, to) {
     );
   } else {
     let to_item = this[to.row_index].cols[to.col_index];
-
-    console.log("else");
     this[from.row_index].cols[from.col_index] = to_item;
     this[to.row_index].cols[to.col_index] = from_item;
   }
@@ -193,14 +310,10 @@ Array.prototype.reorderColIndex = function () {
       classname = "form_input--col-4";
     }
     for (let k = 0; k < this[i].cols.length; k++) {
-      console.log("this", this);
-      console.log("[i][k]", i, k);
       // On retire les précédentes Class
-      console.log("classname");
       let newClassname = this[i].cols[k].classname.filter(
         (item) => !classnames.includes(item)
       );
-      console.log("classname after");
       this[i].cols[k].classname = [...newClassname, classname];
       this[i].cols[k].row_index = i;
       this[i].cols[k].col_index = k;

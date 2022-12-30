@@ -4,137 +4,88 @@ import {
   setColActive,
   colIsDragged,
   colIsDraggedOver,
-  deleteCol,
   moveCol,
   openModal,
+  dragging,
 } from "../actions/actions";
-import ColForm from "./ColForm";
 
-const FormCol = ({ col }) => {
+const Col = ({ col }) => {
   const { colDragged, colDraggedOver } = useSelector((state) => state.form);
   const dispatch = useDispatch();
 
-  const onDragStartHandler = () => {
+  /* COL */
+  const onDragStartColHandler = (e, col_id, row_index, col_index) => {
     dispatch(
       colIsDragged({
-        col_id: col.col_id,
-        row_index: col.row_index,
-        col_index: col.col_index,
+        col_id: col_id,
+        row_index: row_index,
+        col_index: col_index,
+      })
+    );
+    dispatch(dragging(true));
+  };
+
+  const onDragEnterColHandler = (e, col_id, row_index, col_index) => {
+    dispatch(
+      colIsDraggedOver({
+        col_id: col_id,
+        row_index: row_index,
+        col_index: col_index,
       })
     );
   };
 
-  const onDragEnterHandler = (e) => {
-    console.log('colDragged.col_id', colDragged.col_id)
-    console.log('E', e)
-    console.log('e.target.dataset.id', e.target.dataset.id.split('col-')[1])
-    if (colDragged.col_id !== e.target.dataset.id){
-      dispatch(
-          colIsDraggedOver({
-            col_id: col.col_id,
-            row_index: col.row_index,
-            col_index: col.col_index,
-          })
-      );
-    }
-  };
-
-  const onDragLeaveHandler = (e) => {
+  const onDragLeaveColHandler = () => {
     dispatch(colIsDraggedOver(null));
   };
 
-  const onDragEndHandler = (e) => {
-    if (colDragged && colDraggedOver) {
-      if (colDragged.col_id !== colDraggedOver.col_id) {
-        dispatch(
-          moveCol({
-            row_index: col.row_index,
-            from: colDragged,
-            to: colDraggedOver,
-          })
-        );
-        removeColDraggedOverBackground();
-      }
+  const onDragEndColHandler = (e, row_index) => {
+    if (colDraggedOver) {
+      dispatch(
+        moveCol({
+          row_index: row_index,
+          from: colDragged,
+          to: colDraggedOver,
+        })
+      );
     }
+    dispatch(dragging(false));
   };
 
-  const addColDraggedOverBackground = () => {
-    if (colDraggedOver && Object.keys(colDraggedOver).length > 0){
-      let col = document.querySelector(`[data-id="col-${colDraggedOver.col_id}"]`);
-      col.classList.add('dragged_over');
-    } else {
-      removeColDraggedOverBackground();
-    }
-
-  }
-
-  const removeColDraggedOverBackground = () => {
-    let cols = document.getElementsByClassName('dragged_over');
-    for (const col of cols) {
-      col.classList.remove('dragged_over');
-    }
-  }
-
-  const onClickHandler = () => {
+  const onClickHandler = (col) => {
     dispatch(setColActive(col));
     dispatch(openModal());
   };
 
-  const onDeleteHandler = () => {
-    dispatch(
-      deleteCol({
-        row_index: col.row_index,
-        col_id: col.col_id,
-      })
-    );
-  };
-
   useEffect(() => {
-    addColDraggedOverBackground();
     return () => {};
-  }, [col, colDraggedOver]);
+  }, [col]);
 
   return (
     <div
+      key={col.col_id}
       className={col.classname.join(" ")}
-      data-type="input"
+      onClick={() => onClickHandler(col)}
       data-row={col.row_index}
       data-col={col.col_index}
-      data-id={`col-${col.col_id}`}
+      data-col-id={col.col_id}
       draggable
-      onDragStart={onDragStartHandler}
-      onDragEnter={onDragEnterHandler}
-      onDragLeave={onDragLeaveHandler}
-      onDragEnd={onDragEndHandler}
+      onDragStart={(e) =>
+        onDragStartColHandler(e, col.col_id, col.row_index, col.col_index)
+      }
+      onDragEnter={(e) =>
+        onDragEnterColHandler(e, col.col_id, col.row_index, col.col_index)
+      }
+      onDragLeave={(e) =>
+        onDragLeaveColHandler(e, col.col_id, col.row_index, col.col_index)
+      }
+      onDragEnd={(e) => onDragEndColHandler(e, col.row_index)}
       onDragOver={(e) => {
         e.preventDefault();
-        onDragEnterHandler(e);
+        onDragEnterColHandler(e, col.col_id, col.row_index, col.col_index);
       }}
-    >
-      <ColForm col={col} />
-      <div className="ygrek_form_admin--col_button_container">
-        <button
-          type="button"
-          className="ygrek_form_admin--edit_col_button"
-          data-row={col.row_index}
-          data-col={col.col_index}
-          onClick={onClickHandler}
-          disabled={col.input === "vide"}
-        >
-          Edit
-        </button>
-        <button
-          type="button"
-          className="ygrek_form_admin--remove_col_button"
-          data-row={col.row_index}
-          data-col={col.col_index}
-          onClick={onDeleteHandler}
-        >
-          Delete
-        </button>
-      </div>
-    </div>
+    ></div>
   );
 };
 
-export default FormCol;
+export default Col;
