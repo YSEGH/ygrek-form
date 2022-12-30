@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { closeModal, updateCol } from "../actions/actions";
+import { closeModal, deleteCol, updateCol } from "../actions/actions";
 
 const Modal = ({ col }) => {
   const [customClassField, setCustomClassField] = useState(
@@ -61,6 +61,7 @@ const Modal = ({ col }) => {
         values: values,
       })
     );
+    dispatch(closeModal());
   };
 
   const getFieldType = (type) => {
@@ -120,6 +121,7 @@ const Modal = ({ col }) => {
         col_id: col.col_id,
       })
     );
+    dispatch(closeModal());
   };
 
   useEffect(() => {

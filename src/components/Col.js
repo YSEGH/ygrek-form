@@ -84,7 +84,9 @@ const Col = ({ col }) => {
         e.preventDefault();
         onDragEnterColHandler(e, col.col_id, col.row_index, col.col_index);
       }}
-    ></div>
+    >
+      {col.input}
+    </div>
   );
 };
 

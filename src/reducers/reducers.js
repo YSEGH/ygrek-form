@@ -91,9 +91,33 @@ const formReducer = (
   },
   action
 ) => {
+  let newState;
+  let rows;
+  let col = {
+    classname: ["ygrek_form--col", "form_input"],
+    custom_class_field: [],
+    col_id: "",
+    row_index: "",
+    col_index: "",
+    for: "",
+    label: "",
+    custom_class_label: [],
+    input: "vide",
+    input_element: null,
+    input_type: null,
+    default_value: "",
+    custom_class_input: [],
+    options: [],
+    required: false,
+    placeholder: "",
+  };
+  let newCol;
+  let row_index;
+  let col_index;
+  let col_id;
   switch (action.type) {
     case "DRAGGING":
-      let newState = {
+      newState = {
         ...state,
         dragging: action.data,
       };
@@ -140,32 +164,20 @@ const formReducer = (
     case "DELETE_ROW":
       return { loading: false, error: action.data };
     case "ADD_COL":
-      let rows = state.rows
+      row_index = action.data.row_index;
+      col_index = action.data.col_index;
+      newCol = {
+        ...col,
+        col_id: action.data.col_id,
+        row_index: row_index,
+        col_index: col_index,
+      };
+      rows = state.rows
         .map((row) =>
-          row.row_index == action.data.row_index
+          row.row_index == row_index
             ? {
                 ...row,
-                cols: [
-                  ...row.cols,
-                  {
-                    classname: ["ygrek_form--col", "form_input"],
-                    custom_class_field: [],
-                    col_id: action.data.col_id,
-                    row_index: action.data.row_index,
-                    col_index: action.data.col_index,
-                    for: "",
-                    label: "",
-                    custom_class_label: [],
-                    input: "vide",
-                    input_element: null,
-                    input_type: null,
-                    default_value: "",
-                    custom_class_input: [],
-                    options: [],
-                    required: false,
-                    placeholder: "",
-                  },
-                ],
+                cols: [...row.cols, newCol],
               }
             : row
         )
@@ -173,14 +185,14 @@ const formReducer = (
       newState = { ...state, rows: rows };
       return newState;
     case "DELETE_COL":
+      row_index = action.data.row_index;
+      col_id = action.data.col_id;
       rows = state.rows
         .map((row) =>
-          row.row_index == action.data.row_index
+          row.row_index == row_index
             ? {
                 ...row,
-                cols: row.cols.filter(
-                  (col) => col.col_id !== action.data.col_id
-                ),
+                cols: row.cols.filter((col) => col.col_id !== col_id),
               }
             : row
         )
@@ -189,8 +201,10 @@ const formReducer = (
       return newState;
     case "UPDATE_COL":
       rows = state.rows;
+      row_index = action.data.row_index;
+      col_index = action.data.col_index;
       for (const property in action.data.values) {
-        rows[action.data.row_index].cols[action.data.col_index][property] =
+        rows[row_index].cols[col_index][property] =
           action.data.values[property];
       }
       newState = { ...state, rows: rows };
