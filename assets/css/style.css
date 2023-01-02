@@ -1,4 +1,8 @@
-@import url(./admin-ajouter.css);
+@import url(./theme--admin-ajouter.css);
+@import url(./theme--basic.css);
 @import url(./form.css);
-@import url(./col-form.css);
 @import url(./modal.css);
+
+.hidden {
+  display: none;
+}

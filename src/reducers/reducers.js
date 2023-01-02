@@ -3,10 +3,11 @@ import { v4 as uuid } from "uuid";
 const formReducer = (
   state = {
     form_id: "",
-    theme: "",
+    form_class: [],
+    form_theme: "basic",
     rows: [
       {
-        classname: ["ygrek_form_admin--row"],
+        classname: [],
         row_id: uuid(),
         row_index: 0,
         cols: [
@@ -67,13 +68,13 @@ const formReducer = (
         ],
       },
       {
-        classname: ["ygrek_form_admin--row"],
+        classname: [],
         row_id: uuid(),
         row_index: 1,
         cols: [],
       },
       {
-        classname: ["ygrek_form_admin--row"],
+        classname: [],
         row_id: uuid(),
         row_index: 2,
         cols: [],
@@ -94,7 +95,11 @@ const formReducer = (
   let newState;
   let rows;
   let col = {
-    classname: ["ygrek_form--col", "form_input"],
+    classname: [
+      "ygrek_form--col",
+      "ygrek_form--form_input",
+      "ygrek_form--col-12",
+    ],
     custom_class_field: [],
     col_id: "",
     row_index: "",
@@ -122,10 +127,12 @@ const formReducer = (
         dragging: action.data,
       };
       return newState;
-    case "SET_FORM_ID":
+    case "SET_FORM_DETAILS":
       newState = {
         ...state,
         form_id: action.data.form_id,
+        form_class: action.data.form_class,
+        form_theme: action.data.form_theme,
       };
       return newState;
     case "OPEN_MODAL":
@@ -153,7 +160,7 @@ const formReducer = (
         rows: [
           ...state.rows,
           {
-            classname: ["ygrek_form_admin--row"],
+            classname: [],
             row_id: action.data.row_id,
             row_index: action.data.row_index,
             cols: [],
@@ -208,8 +215,7 @@ const formReducer = (
           action.data.values[property];
       }
       newState = { ...state, rows: rows };
-      /*       console.log(newState.rows);
-       */ return newState;
+      return newState;
     case "COL_IS_DRAGGED":
       rows = state.rows.removeOnDragClass();
       newState = { ...state, rows: rows, colDragged: action.data };
@@ -309,19 +315,19 @@ Array.prototype.move = function (from, to) {
 Array.prototype.reorderColIndex = function () {
   for (let i = 0; i < this.length; i++) {
     const classnames = [
-      "form_input--col-4",
-      "form_input--col-6",
-      "form_input--col-12",
+      "ygrek_form--col-4",
+      "ygrek_form--col-6",
+      "ygrek_form--col-12",
     ];
     let classname = "";
     let col_number = this[i].cols.length;
 
     if (col_number == 1) {
-      classname = "form_input--col-12";
+      classname = "ygrek_form--col-12";
     } else if (col_number == 2) {
-      classname = "form_input--col-6";
+      classname = "ygrek_form--col-6";
     } else if (col_number == 3) {
-      classname = "form_input--col-4";
+      classname = "ygrek_form--col-4";
     }
     for (let k = 0; k < this[i].cols.length; k++) {
       // On retire les précédentes Class

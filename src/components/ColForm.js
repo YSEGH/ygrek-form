@@ -26,56 +26,6 @@ const ColForm = ({ col }) => {
     );
   };
 
-  const getFieldType = (type) => {
-    let values = {};
-    values["input"] = type;
-    switch (type) {
-      case "nom":
-      case "prenom":
-      case "texte_court":
-        values["input_element"] = "input";
-        values["input_type"] = "text";
-        break;
-      case "liste":
-        values["input_element"] = "select";
-        break;
-      case "telephone":
-        values["input_element"] = "input";
-        values["input_type"] = "tel";
-        break;
-      case "color":
-        values["input_element"] = "input";
-        values["input_type"] = "color";
-        break;
-      case "file":
-        values["input_element"] = "input";
-        values["input_type"] = "file";
-        break;
-      case "date":
-        values["input_element"] = "input";
-        values["input_type"] = "date";
-        break;
-      case "email":
-        values["input_element"] = "input";
-        values["input_type"] = "email";
-        break;
-      case "case_a_cocher":
-        values["input_element"] = "input";
-        values["input_type"] = "checkbox";
-        break;
-      case "radio":
-        values["input_element"] = "input";
-        values["input_type"] = "radio";
-        break;
-      case "texte_long":
-        values["input_element"] = "textarea";
-        break;
-      default:
-        break;
-    }
-    return values;
-  };
-
   useEffect(() => {
     return () => {};
   }, [col]);

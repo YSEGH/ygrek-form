@@ -17,19 +17,19 @@ const TabsHeader = ({ changePageHandler }) => {
         className="ygrek_form--tab_button"
         onClick={(event) => onClickHandler(event, "liste")}
       >
-        L
+        Liste
       </button>
       <button
         className="ygrek_form--tab_button"
         onClick={(event) => onClickHandler(event, "ajouter")}
       >
-        Add
+        Ajouter
       </button>
       <button
         className="ygrek_form--tab_button"
         onClick={(event) => onClickHandler(event, "soumissions")}
       >
-        Click
+        Soumissions
       </button>
     </>
   );

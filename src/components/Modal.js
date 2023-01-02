@@ -129,15 +129,15 @@ const Modal = ({ col }) => {
   }, [options]);
 
   return (
-    <div className="ygrek_form_admin--modal_overlay">
-      <div className="ygrek_form_admin--modal_content">
-        <div className="ygrek_form_admin--modal_header">
+    <div className="ygrek_form--modal-overlay">
+      <div className="ygrek_form--modal-content">
+        <div className="ygrek_form--modal-header">
           <h1>{col.input}</h1>
           <button onClick={onCloseHandler}>Fermer</button>
         </div>
-        <div className="ygrek_form_admin--modal_body">
-          <div className="form_group">
-            <div className="form_input form_input--col-6 form_input--text">
+        <div className="ygrek_form--modal-body">
+          <div className="ygrek_form--form_group">
+            <div className="ygrek_form--form_input ygrek_form--col-6 ygrek_form--input-text">
               <label>Classes CSS (Formulaire)</label>
               <input
                 type="text"
@@ -147,8 +147,8 @@ const Modal = ({ col }) => {
               <p></p>
             </div>
           </div>
-          <div className="form_group">
-            <div className="form_input form_input--col-6 form_input--text">
+          <div className="ygrek_form--form_group">
+            <div className="ygrek_form--form_input ygrek_form--col-6 ygrek_form--input-text">
               <label>Libellé</label>
               <input
                 type="text"
@@ -157,7 +157,7 @@ const Modal = ({ col }) => {
               />
               <p></p>
             </div>
-            <div className="form_input form_input--col-6 form_input--text">
+            <div className="ygrek_form--form_input ygrek_form--col-6 ygrek_form--input-text">
               <label>Classes CSS (Libellé)</label>
               <input
                 type="text"
@@ -167,8 +167,8 @@ const Modal = ({ col }) => {
               <p>Séparez les différentes classes par des virgules</p>
             </div>
           </div>
-          <div className="form_group">
-            <div className="form_input form_input--col-6 form_input--select">
+          <div className="ygrek_form--form_group">
+            <div className="ygrek_form--form_input ygrek_form--col-6 ygrek_form--input-select">
               <label>Input</label>
               <select
                 defaultValue={input}
@@ -190,7 +190,7 @@ const Modal = ({ col }) => {
               </select>
               <p></p>
             </div>
-            <div className="form_input form_input--col-6 form_input--text">
+            <div className="ygrek_form--form_input ygrek_form--col-6 ygrek_form--input-text">
               <label>Classes CSS (Champ)</label>
 
               <input
@@ -201,8 +201,8 @@ const Modal = ({ col }) => {
               <p>Séparez les différentes classes par des virgules</p>
             </div>
           </div>
-          <div className="form_group">
-            <div className="form_input form_input--col-6 form_input--text">
+          <div className="ygrek_form--form_group">
+            <div className="ygrek_form--form_input ygrek_form--col-6 ygrek_form--input-text">
               <label>Placeholder</label>
               <input
                 type="text"
@@ -211,7 +211,7 @@ const Modal = ({ col }) => {
               />
               <p></p>
             </div>
-            <div className="form_input form_input--col-6 form_input--text">
+            <div className="ygrek_form--form_input ygrek_form--col-6 ygrek_form--input-text">
               <label>Valeur par défaut</label>
               <input
                 type="text"
@@ -221,8 +221,8 @@ const Modal = ({ col }) => {
               <p></p>
             </div>
           </div>
-          <div className="form_group form_group--options">
-            <div className="form_input form_input--col-6 ">
+          <div className="ygrek_form--form_group ygrek_form--form_group--options">
+            <div className="ygrek_form--form_input ygrek_form--col-6 ">
               <label>Options</label>
               <input
                 type="text"
@@ -232,7 +232,7 @@ const Modal = ({ col }) => {
               />
               <p></p>
             </div>
-            <div className="form_input">
+            <div className="ygrek_form--form_input">
               <label></label>
               <input
                 type="text"
@@ -246,19 +246,19 @@ const Modal = ({ col }) => {
               +
             </button>
           </div>
-          <div className="form_group form_group--options_container">
-            <div className="form_input form_input--col-12">
+          <div className="ygrek_form--form_group ygrek_form--form_group--options_container">
+            <div className="ygrek_form--form_input ygrek_form--col-12">
               {options.map((option, i) => (
                 <span key={i}>{option.label}</span>
               ))}
             </div>
           </div>
         </div>
-        <div className="ygrek_form_admin--modal_footer">
+        <div className="ygrek_form--modal-footer">
           <button onClick={onSaveHandler}>Sauvegarder</button>
           <button
             type="button"
-            className="ygrek_form_admin--remove_col_button"
+            className="ygrek_form--button-remove_col"
             onClick={onDeleteHandler}
           >
             Delete

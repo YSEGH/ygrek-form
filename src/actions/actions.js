@@ -3,9 +3,6 @@ import axios from "axios";
 const dragging = (data) => (dispatch) => {
   dispatch({ type: "DRAGGING", data: data });
 };
-const setFormID = (data) => (dispatch) => {
-  dispatch({ type: "SET_FORM_ID", data: data });
-};
 const openModal = (data) => (dispatch) => {
   dispatch({ type: "OPEN_MODAL", data: data });
 };
@@ -51,12 +48,15 @@ const saveForm = (data) => async (dispatch) => {
     dispatch({ type: "SAVE_FORM_FAIL", payload: error.response.data.message });
   }
 };
+const setDetails = (data) => (dispatch) => {
+  dispatch({ type: "SET_FORM_DETAILS", data: data });
+};
 const resetForm = () => (dispatch) => {
   dispatch({ type: "RESET_FORM" });
 };
 export {
   dragging,
-  setFormID,
+  setDetails,
   setColActive,
   openModal,
   closeModal,

@@ -24,7 +24,6 @@ const Row = ({ row }) => {
     }
   };
 
-  /* ROW */
   const onDragEnterRowHandler = (e, row_id, row_index) => {
     if (colDragged) {
       if (colDragged.row_index !== row_index) {
@@ -57,7 +56,7 @@ const Row = ({ row }) => {
   return (
     <div
       key={row.row_id}
-      className={row.classname.join(" ")}
+      className={`ygrek_form--row ${row.classname.join(" ")}`}
       data-row={row.row_index}
       data-row-id={row.row_id}
       onDragEnter={
@@ -82,14 +81,14 @@ const Row = ({ row }) => {
           : undefined
       }
     >
-      <div className="ygrek_form_admin--col_container">
+      <div className="ygrek_form--col_container">
         {row.cols.map((col) => (
           <Col key={col.col_id} col={col} />
         ))}
       </div>
       <button
         type="button"
-        className="ygrek_form_admin--add_col_button"
+        className="ygrek_form--button-add_col"
         onClick={addColHandler}
         data-row={row.row_index}
       >

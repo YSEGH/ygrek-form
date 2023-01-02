@@ -1,0 +1,85 @@
+/* Form */
+#ygrek_form--admin_ajouter.ygrek_form--form_container {
+  display: flex;
+}
+#ygrek_form--admin_ajouter.ygrek_form--form_container
+  .ygrek_form--details_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 2rem;
+}
+#ygrek_form--admin_ajouter.ygrek_form--form_container
+  .ygrek_form--details_container
+  .ygrek_form--form_input {
+  flex: none;
+}
+#ygrek_form--admin_ajouter.ygrek_form--form_container
+  .ygrek_form--row_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+#ygrek_form--admin_ajouter.ygrek_form--form_container
+  .ygrek_form--row_container
+  .ygrek_form--row {
+  height: 192px;
+  width: 501px;
+  background-color: rgb(126, 115, 237);
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+/* Button add */
+#ygrek_form--admin_ajouter.ygrek_form--form_container
+  .ygrek_form--row_container
+  .ygrek_form--row
+  .ygrek_form--button-add_col {
+  margin: auto;
+  height: fit-content;
+}
+/* Col */
+#ygrek_form--admin_ajouter.ygrek_form--form_container
+  .ygrek_form--row_container
+  .ygrek_form--row
+  .ygrek_form--col_container {
+  height: 100%;
+  width: 471px;
+  background-color: #cf7272;
+  display: flex;
+}
+#ygrek_form--admin_ajouter.ygrek_form--form_container.dragging
+  .ygrek_form--row_container
+  .ygrek_form--row.dragged_hover
+  .ygrek_form--col_container {
+  background-color: #7293cf;
+}
+#ygrek_form--admin_ajouter.ygrek_form--form_container
+  .ygrek_form--row_container
+  .ygrek_form--row
+  .ygrek_form--col_container
+  .ygrek_form--col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  height: 164px;
+  width: 100%;
+  margin: 6px;
+  cursor: pointer;
+  background-color: rgb(228, 228, 228, 0.3);
+  transition: 0.25s width;
+  padding: 0.5rem;
+  border-radius: 5px;
+  pointer-events: all;
+}
+#ygrek_form--admin_ajouter.ygrek_form--form_container.dragging
+  .ygrek_form--row_container
+  .ygrek_form--row
+  .ygrek_form--col_container
+  .ygrek_form--col.dragged_hover {
+  background-color: #00a0d2;
+}

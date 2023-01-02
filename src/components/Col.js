@@ -13,7 +13,6 @@ const Col = ({ col }) => {
   const { colDragged, colDraggedOver } = useSelector((state) => state.form);
   const dispatch = useDispatch();
 
-  /* COL */
   const onDragStartColHandler = (e, col_id, row_index, col_index) => {
     dispatch(
       colIsDragged({

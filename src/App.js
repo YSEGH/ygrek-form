@@ -34,7 +34,9 @@ export const App = () => {
       ) : page == "ygrek-form-soumissions" ? (
         <h1>Soumissions</h1>
       ) : (
-        <div></div>
+        <div>
+          <h1>Cette page n'existe pas.</h1>
+        </div>
       )}
     </>
   );

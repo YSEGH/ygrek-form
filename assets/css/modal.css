@@ -1,4 +1,4 @@
-.ygrek_form_admin--modal_overlay {
+.ygrek_form--modal-overlay {
   position: fixed;
   height: 100vh;
   width: 100vw;
@@ -10,7 +10,7 @@
   align-items: center;
   justify-content: center;
 }
-.ygrek_form_admin--modal_overlay .ygrek_form_admin--modal_content {
+.ygrek_form--modal-overlay .ygrek_form--modal-content {
   position: fixed;
   height: fit-content;
   max-height: 90vh;
@@ -23,35 +23,39 @@
   align-items: stretch;
   justify-content: flex-start;
 }
-
-.ygrek_form_admin--modal_overlay
-  .ygrek_form_admin--modal_content
-  .ygrek_form_admin--modal_header {
+.ygrek_form--modal-overlay
+  .ygrek_form--modal-content
+  .ygrek_form--modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
   border-bottom: 1px solid lightgray;
 }
-.ygrek_form_admin--modal_overlay
-.ygrek_form_admin--modal_content
-.ygrek_form_admin--modal_header h1{
+.ygrek_form--modal-overlay
+  .ygrek_form--modal-content
+  .ygrek_form--modal-header
+  h1 {
   margin: 0;
 }
-.ygrek_form_admin--modal_overlay
-  .ygrek_form_admin--modal_content
-  .ygrek_form_admin--modal_body {
-  padding: .5rem 1.5rem;
+.ygrek_form--modal-overlay .ygrek_form--modal-content .ygrek_form--modal-body {
+  padding: 0.5rem 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
 }
-.ygrek_form_admin--modal_overlay
-.ygrek_form_admin--modal_content
-.ygrek_form_admin--modal_footer {
+.ygrek_form--modal-overlay
+  .ygrek_form--modal-content
+  .ygrek_form--modal-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
+}
+/* Form */
+.ygrek_form--form_group--options button {
+  margin-top: 34px;
+  height: 30px;
+  width: 30px;
 }
