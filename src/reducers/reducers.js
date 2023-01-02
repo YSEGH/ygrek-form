@@ -256,11 +256,11 @@ const formReducer = (
       };
       return newState;
     case "SAVE_FORM_REQUEST":
-      return { loading: true };
+      return { ...state, loading: true };
     case "SAVE_FORM_SUCCESS":
-      return { loading: false, data: data };
+      return { ...state, loading: false, success: action.data };
     case "SAVE_FORM_ERROR":
-      return { loading: false, data: data };
+      return { ...state, loading: false, error: action.data };
     case "RESET_FORM":
       return {};
     default:

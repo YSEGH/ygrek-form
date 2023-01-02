@@ -38,8 +38,7 @@
   justify-content: flex-start;
   align-items: center;
 }
-.ygrek_form--form_group {
-}
+
 .ygrek_form--form_group.ygrek_form--select {
   margin-bottom: 1.5rem;
 }

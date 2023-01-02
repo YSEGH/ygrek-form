@@ -44,5 +44,4 @@ if (!class_exists('YF_Admin_Menu')) :
 	}
 
 endif;
-// Initiate the class.
 return new YF_Admin_Menu();

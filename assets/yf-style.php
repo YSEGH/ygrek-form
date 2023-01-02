@@ -22,7 +22,7 @@ if (!class_exists('YF_style')) :
         /* Enqueue style files */
         function enqueue_style()
         {
-            wp_enqueue_style('YF_style', plugin_dir_url(__FILE__) . '/assets/css/style.css', null, '1');
+            wp_enqueue_style('YF_style', YF_URL . '/assets/css/style.css', null, '1');
         }
     }
 

@@ -19,10 +19,11 @@ if (!class_exists('YF_scripts')) :
         {
             add_action('admin_enqueue_scripts', [$this, 'enqueue_scripts']);
         }
+
         /* Enqueue scripts/style files */
         function enqueue_scripts()
         {
-            wp_enqueue_script('YF_scripts', plugin_dir_url(__FILE__) . '/assets/js/bundle.js', array('jquery', 'wp-element'), time(), true);
+            wp_enqueue_script('YF_scripts', YF_URL . '/assets/js/bundle.js', array('jquery', 'wp-element'), time(), true);
         }
     }
 

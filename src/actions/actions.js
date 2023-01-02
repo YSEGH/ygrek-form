@@ -1,5 +1,6 @@
 import axios from "axios";
 
+const baseURL = window.location.origin + "/monouebsite/wp-json/yf-form";
 const dragging = (data) => (dispatch) => {
   dispatch({ type: "DRAGGING", data: data });
 };
@@ -42,8 +43,9 @@ const updateCol = (data) => (dispatch) => {
 const saveForm = (data) => async (dispatch) => {
   dispatch({ type: "SAVE_FORM_REQUEST" });
   try {
-    const response = await axios.post("/api/save_form/", data);
-    dispatch({ type: "SAVE_FORM_SUCCESS", payload: response.data });
+    const response = await axios.post(baseURL + "/add", data);
+    console.log(response);
+    dispatch({ type: "SAVE_FORM_SUCCESS", data: response.data });
   } catch (error) {
     dispatch({ type: "SAVE_FORM_FAIL", payload: error.response.data.message });
   }

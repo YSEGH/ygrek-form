@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 import { useDispatch, useSelector } from "react-redux";
-import { addRow, setDetails } from "../actions/actions";
+import { addRow, saveForm, setDetails } from "../actions/actions";
 import Row from "./Row";
 import Modal from "./Modal";
 
@@ -24,13 +24,13 @@ const Form = () => {
 
   const saveFormHandler = (e) => {
     e.preventDefault();
-    dispatch(
-      setDetails({
-        form_id: formID,
-        form_class: formClass.split(",").map((element) => element.trim()),
-        form_theme: formTheme,
-      })
-    );
+    const form = {
+      form_id: formID,
+      form_class: formClass,
+      form_theme: formTheme,
+      rows: JSON.stringify(rows),
+    };
+    saveForm(form);
   };
 
   const addRowHandler = () => {
@@ -40,6 +40,7 @@ const Form = () => {
   };
 
   useEffect(() => {
+    console.log(JSON.stringify(rows));
     return () => {};
   }, [rows, dragging]);
 
