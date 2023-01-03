@@ -18,8 +18,16 @@ if (!class_exists('YF_tables')) :
     {
         function __construct()
         {
-            register_activation_hook(__FILE__, [$this, 'create_tables']);
-            register_deactivation_hook(__FILE__, [$this, 'remove_tables']);
+            register_activation_hook(YF_DIR . '/ygrek-form.php', [$this, 'on_activate']);
+            register_deactivation_hook(YF_DIR . '/ygrek-form.php', [$this, 'on_deactivate']);
+        }
+
+        function on_activate(){
+            $this->create_tables();
+        }
+
+        function on_deactivate(){
+            $this->remove_tables();
         }
 
         function create_tables()
@@ -29,32 +37,24 @@ if (!class_exists('YF_tables')) :
             $charset_collate = $wpdb->get_charset_collate();
             $form_table = $wpdb->prefix . 'yf_form';
             $submission_table = $wpdb->prefix . 'yf_submission';
-            /* $queries = [
+            $queries = [
                 "CREATE TABLE $form_table (
-                    id mediumint(9) NOT NULL AUTO_INCREMENT,
-                    form_id mediumtext NOT NULL,
-                    form_class mediumtext NOT NULL,
-                    form_theme tinytext NOT NULL,
-                    rows longtext NOT NULL,
-                    UNIQUE KEY id (id)
+                    `id` mediumint(9) NOT NULL AUTO_INCREMENT,
+                    `form_id` mediumtext NOT NULL,
+                    `form_class` mediumtext NOT NULL,
+                    `form_theme` tinytext NOT NULL,
+                    `rows` longtext NOT NULL,
+                    PRIMARY KEY  (id)
                     ) $charset_collate;",
                 "CREATE TABLE $submission_table (
-                    id mediumint(9) NOT NULL AUTO_INCREMENT,
-                    UNIQUE KEY id (id)
-                    ) $charset_collate;",
-            ]; */
-            $query = "CREATE TABLE $form_table (
-                    id mediumint(9) NOT NULL AUTO_INCREMENT,
-                    form_id mediumtext NOT NULL,
-                    form_class mediumtext NOT NULL,
-                    form_theme tinytext NOT NULL,
-                    rows longtext NOT NULL,
-                    UNIQUE KEY id (id)
-                    ) $charset_collate;";
-
+                    `id` mediumint(9) NOT NULL AUTO_INCREMENT,
+                    PRIMARY KEY  (id)
+                    ) $charset_collate;"
+            ];
             require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-            dbDelta($query);
-
+            foreach ($queries as $query){
+                dbDelta($query);
+            }
             add_option('ygrek_form_db_version', $plugin_name_db_version);
         }
 
@@ -69,8 +69,9 @@ if (!class_exists('YF_tables')) :
             ];
             require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
             foreach ($queries as $query) {
-                dbDelta($query);
+                $wpdb->query($query);
             }
+            delete_option("ygrek_form_db_version");
         }
     }
 
