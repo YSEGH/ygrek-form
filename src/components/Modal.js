@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { closeModal, deleteCol, updateCol } from "../actions/actions";
+import { closeModal } from "../actions/actions--drag-n-drop";
+import { deleteCol, updateCol } from "../actions/actions--form";
 
 const Modal = ({ col }) => {
   const [customClassField, setCustomClassField] = useState(

@@ -1,16 +1,18 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  setColActive,
   colIsDragged,
   colIsDraggedOver,
+  dragging,
   moveCol,
   openModal,
-  dragging,
-} from "../actions/actions";
+  setColActive,
+} from "../actions/actions--drag-n-drop";
 
 const Col = ({ col }) => {
-  const { colDragged, colDraggedOver } = useSelector((state) => state.form);
+  const { colDragged, colDraggedOver } = useSelector(
+    (state) => state.dragNDrop
+  );
   const dispatch = useDispatch();
 
   const onDragStartColHandler = (e, col_id, row_index, col_index) => {

@@ -1,6 +1,10 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { setPage } from "../actions/actions--app";
 
-const TabsHeader = ({ changePageHandler }) => {
+const TabsHeader = () => {
+  const dispatch = useDispatch();
+
   const onClickHandler = (e, target) => {
     let tabs = document.getElementsByClassName("ygrek_form--tab_button");
     for (let tab of tabs) {
@@ -9,7 +13,7 @@ const TabsHeader = ({ changePageHandler }) => {
       }
     }
     e.target.classList.add("is-active");
-    changePageHandler(target);
+    dispatch(setPage({ target: target }));
   };
   return (
     <>

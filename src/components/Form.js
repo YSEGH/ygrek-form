@@ -1,23 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 import { useDispatch, useSelector } from "react-redux";
-import { addRow, saveForm, setDetails } from "../actions/actions";
 import Row from "./Row";
 import Modal from "./Modal";
+import { saveForm } from "../actions/actions--api";
+import { addRow } from "../actions/actions--form";
 
 const Form = () => {
   const dispatch = useDispatch();
-  const {
-    form_id,
-    form_class,
-    form_theme,
-    rows,
-    modal,
-    active_col,
-    success,
-    error,
-    dragging,
-  } = useSelector((state) => state.form);
+  const { modal, active_col, dragging } = useSelector(
+    (state) => state.dragNDrop
+  );
+  const { form_title, form_id, form_class, form_theme, rows } = useSelector(
+    (state) => state.form
+  );
+  const [formTitle, setFormTitle] = useState(form_title);
   const [formID, setFormID] = useState(form_id);
   const [formClass, setFormClass] = useState(form_class.join(", "));
   const [formTheme, setFormTheme] = useState(form_theme);
@@ -25,12 +22,13 @@ const Form = () => {
   const saveFormHandler = (e) => {
     e.preventDefault();
     const form = {
+      form_title: formTitle,
       form_id: formID,
       form_class: formClass,
       form_theme: formTheme,
       rows: JSON.stringify(rows),
     };
-    saveForm(form);
+    dispatch(saveForm(form));
   };
 
   const addRowHandler = () => {
@@ -40,9 +38,8 @@ const Form = () => {
   };
 
   useEffect(() => {
-    console.log(JSON.stringify(rows));
     return () => {};
-  }, [rows, dragging]);
+  }, [form_title, form_id, form_class, form_theme, rows, dragging]);
 
   return (
     <>
@@ -66,12 +63,22 @@ const Form = () => {
             <p></p>
           </div>
           <div className="ygrek_form--form_input ygrek_form--col-12">
+            <label htmlFor="form_title">Form Title</label>
+            <input
+              type="text"
+              name="form_title"
+              onChange={(e) => setFormTitle(e.target.value)}
+              defaultValue={form_title}
+            />
+            <p></p>
+          </div>
+          <div className="ygrek_form--form_input ygrek_form--col-12">
             <label htmlFor="form_id">Form ID</label>
             <input
               type="text"
               name="form_id"
               onChange={(e) => setFormID(e.target.value)}
-              value={formID}
+              defaultValue={form_id}
             />
             <p></p>
           </div>

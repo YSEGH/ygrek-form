@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { updateCol } from "../actions/actions";
 import { v4 as uuid } from "uuid";
+import { updateCol } from "../actions/actions--form";
 
 const ColForm = ({ col }) => {
   const dispatch = useDispatch();

@@ -47,7 +47,14 @@ if (file_exists(YF_DIR . '/assets/yf-scripts.php')) {
 if (file_exists(YF_DIR . '/assets/yf-style.php')) {
     require_once(YF_DIR . '/assets/yf-style.php');
 }
-
+/**
+ * Form controller.
+ *
+ * @since 1.0.0
+ */
+if (file_exists(YF_DIR . '/assets/yf-form-controller.php')) {
+    require_once(YF_DIR . '/assets/yf-form-controller.php');
+}
 /**
  * API file.
  *

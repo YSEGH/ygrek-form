@@ -22,11 +22,13 @@ if (!class_exists('YF_tables')) :
             register_deactivation_hook(YF_DIR . '/ygrek-form.php', [$this, 'on_deactivate']);
         }
 
-        function on_activate(){
+        function on_activate()
+        {
             $this->create_tables();
         }
 
-        function on_deactivate(){
+        function on_deactivate()
+        {
             $this->remove_tables();
         }
 
@@ -40,10 +42,11 @@ if (!class_exists('YF_tables')) :
             $queries = [
                 "CREATE TABLE $form_table (
                     `id` mediumint(9) NOT NULL AUTO_INCREMENT,
-                    `form_id` mediumtext NOT NULL,
-                    `form_class` mediumtext NOT NULL,
-                    `form_theme` tinytext NOT NULL,
-                    `rows` longtext NOT NULL,
+                    `form_title` mediumtext NULL,
+                    `form_id` mediumtext NULL,
+                    `form_class` mediumtext NULL,
+                    `form_theme` tinytext NULL,
+                    `rows` longtext NULL,
                     PRIMARY KEY  (id)
                     ) $charset_collate;",
                 "CREATE TABLE $submission_table (
@@ -52,7 +55,7 @@ if (!class_exists('YF_tables')) :
                     ) $charset_collate;"
             ];
             require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-            foreach ($queries as $query){
+            foreach ($queries as $query) {
                 dbDelta($query);
             }
             add_option('ygrek_form_db_version', $plugin_name_db_version);

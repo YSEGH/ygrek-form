@@ -1,37 +1,43 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getFormById } from "./actions/actions--api";
+import { setPage } from "./actions/actions--app";
 import Form from "./components/Form";
+import Liste from "./components/Liste";
 import TabsHeader from "./components/TabsHeader";
 
 export const App = () => {
-  const [page, setPage] = useState("");
+  const { page } = useSelector((state) => state.app);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    const page = urlParams.get("page");
-    setPage(page);
+    const param_id = urlParams.get("id");
+    const param_page = urlParams.get("page");
+    let params = { target: param_page.split("-")[2] };
+    if (param_id) {
+      let conditions = {
+        id: param_id,
+      };
+      dispatch(getFormById({ conditions: conditions }));
+      params = { ...params, id: param_id };
+    }
+    if (page !== params.target) {
+      dispatch(setPage(params));
+    }
     return () => {};
-  }, []);
-
-  const changePageHandler = (target) => {
-    window.history.pushState(
-      {
-        page: target,
-      },
-      target.charAt(0).toUpperCase(),
-      `?page=ygrek-form-${target}`
-    );
-    setPage(`ygrek-form-${target}`);
-  };
+  }, [page]);
 
   return (
     <>
-      <TabsHeader changePageHandler={changePageHandler} />
-      {page == "ygrek-form-ajouter" ? (
+      <TabsHeader />
+      {page == "ajouter" ? (
         <Form />
-      ) : page == "ygrek-form-liste" ? (
-        <h1>Liste</h1>
-      ) : page == "ygrek-form-soumissions" ? (
+      ) : page == "liste" ? (
+        <Liste />
+      ) : page == "soumissions" ? (
         <h1>Soumissions</h1>
       ) : (
         <div>

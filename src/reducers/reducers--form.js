@@ -1,99 +1,18 @@
-import { v4 as uuid } from "uuid";
-
 const formReducer = (
   state = {
+    form_title: "",
     form_id: "",
     form_class: [],
     form_theme: "basic",
-    rows: [
-      {
-        classname: [],
-        row_id: uuid(),
-        row_index: 0,
-        cols: [
-          {
-            classname: ["ygrek_form--col", "form_input"],
-            custom_class_field: [],
-            col_id: uuid(),
-            row_index: 0,
-            col_index: 0,
-            for: "",
-            label: "",
-            custom_class_label: [],
-            input: "vide",
-            input_element: null,
-            input_type: null,
-            default_value: "",
-            custom_class_input: [],
-            options: [],
-            required: false,
-            placeholder: "",
-          },
-          {
-            classname: ["ygrek_form--col", "form_input"],
-            custom_class_field: [],
-            col_id: uuid(),
-            row_index: 0,
-            col_index: 1,
-            for: "",
-            label: "",
-            custom_class_label: [],
-            input: "vide",
-            input_element: null,
-            input_type: null,
-            default_value: "",
-            custom_class_input: [],
-            options: [],
-            required: false,
-            placeholder: "",
-          },
-          {
-            classname: ["ygrek_form--col", "form_input"],
-            custom_class_field: [],
-            col_id: uuid(),
-            row_index: 0,
-            col_index: 2,
-            for: "",
-            label: "",
-            custom_class_label: [],
-            input: "vide",
-            input_element: null,
-            input_type: null,
-            default_value: "",
-            custom_class_input: [],
-            options: [],
-            required: false,
-            placeholder: "",
-          },
-        ],
-      },
-      {
-        classname: [],
-        row_id: uuid(),
-        row_index: 1,
-        cols: [],
-      },
-      {
-        classname: [],
-        row_id: uuid(),
-        row_index: 2,
-        cols: [],
-      },
-    ],
-    dragging: false,
-    active_col: {},
-    modal: false,
-    loading: false,
-    success: null,
-    error: null,
-    colDragged: null,
-    colDraggedOver: null,
-    rowDraggedOver: null,
+    rows: [],
   },
   action
 ) => {
   let newState;
   let rows;
+  let row_index;
+  let col_index;
+  let col_id;
   let col = {
     classname: [
       "ygrek_form--col",
@@ -117,43 +36,24 @@ const formReducer = (
     placeholder: "",
   };
   let newCol;
-  let row_index;
-  let col_index;
-  let col_id;
   switch (action.type) {
-    case "DRAGGING":
+    case "SET_FORM":
       newState = {
-        ...state,
-        dragging: action.data,
-      };
-      return newState;
-    case "SET_FORM_DETAILS":
-      newState = {
-        ...state,
+        form_title: action.data.form_title,
         form_id: action.data.form_id,
-        form_class: action.data.form_class,
+        form_class: action.data.form_class.split(","),
         form_theme: action.data.form_theme,
+        rows: JSON.parse(action.data.rows),
       };
       return newState;
-    case "OPEN_MODAL":
-      newState = {
-        ...state,
-        modal: true,
+    case "RESET_FORM":
+      return {
+        form_title: "",
+        form_id: "",
+        form_class: [],
+        form_theme: "basic",
+        rows: [],
       };
-      return newState;
-    case "CLOSE_MODAL":
-      newState = {
-        ...state,
-        modal: false,
-        active_col: {},
-      };
-      return newState;
-    case "SET_COL_ACTIVE":
-      newState = {
-        ...state,
-        active_col: action.data,
-      };
-      return newState;
     case "ADD_ROW":
       newState = {
         ...state,
@@ -168,8 +68,23 @@ const formReducer = (
         ],
       };
       return newState;
+    case "COL_IS_DRAGGED":
+      rows = state.rows.removeOnDragClass();
+      return { ...state, rows: rows };
+    case "COL_IS_DRAGGED_OVER":
+      rows = state.rows.removeOnDragClass(true);
+      newState = {
+        ...state,
+        rows: rows,
+      };
+      if (action.data) {
+        newState.rows[action.data.row_index].cols[
+          action.data.col_index
+        ].classname.push("dragged_hover");
+      }
+      return newState;
     case "DELETE_ROW":
-      return { loading: false, error: action.data };
+      return {};
     case "ADD_COL":
       row_index = action.data.row_index;
       col_index = action.data.col_index;
@@ -189,8 +104,7 @@ const formReducer = (
             : row
         )
         .reorderColIndex();
-      newState = { ...state, rows: rows };
-      return newState;
+      return { ...state, rows: rows };
     case "DELETE_COL":
       row_index = action.data.row_index;
       col_id = action.data.col_id;
@@ -204,9 +118,9 @@ const formReducer = (
             : row
         )
         .reorderColIndex();
-      newState = { ...state, rows: rows };
-      return newState;
+      return { ...state, rows: rows };
     case "UPDATE_COL":
+      console.log("reducer_form", action.data);
       rows = state.rows;
       row_index = action.data.row_index;
       col_index = action.data.col_index;
@@ -214,31 +128,12 @@ const formReducer = (
         rows[row_index].cols[col_index][property] =
           action.data.values[property];
       }
-      newState = { ...state, rows: rows };
-      return newState;
-    case "COL_IS_DRAGGED":
-      rows = state.rows.removeOnDragClass();
-      newState = { ...state, rows: rows, colDragged: action.data };
-      return newState;
-    case "COL_IS_DRAGGED_OVER":
-      rows = state.rows.removeOnDragClass(true);
-      newState = {
-        ...state,
-        rows: rows,
-        colDraggedOver: action.data,
-      };
-      if (action.data) {
-        newState.rows[action.data.row_index].cols[
-          action.data.col_index
-        ].classname.push("dragged_hover");
-      }
-      return newState;
+      return { ...state, rows: rows };
     case "ROW_IS_DRAGGED_OVER":
       rows = state.rows.removeOnDragClass();
       newState = {
         ...state,
         rows: rows,
-        rowDraggedOver: action.data,
       };
       if (action.data) {
         newState.rows[action.data.row_index].classname.push("dragged_hover");
@@ -250,19 +145,8 @@ const formReducer = (
         rows: state.rows
           .move(action.data.from, action.data.to)
           .removeOnDragClass(true),
-        colDragged: null,
-        colDraggedOver: null,
-        rowDraggedOver: null,
       };
       return newState;
-    case "SAVE_FORM_REQUEST":
-      return { ...state, loading: true };
-    case "SAVE_FORM_SUCCESS":
-      return { ...state, loading: false, success: action.data };
-    case "SAVE_FORM_ERROR":
-      return { ...state, loading: false, error: action.data };
-    case "RESET_FORM":
-      return {};
     default:
       return state;
   }
@@ -341,5 +225,4 @@ Array.prototype.reorderColIndex = function () {
   }
   return this;
 };
-
 export { formReducer };

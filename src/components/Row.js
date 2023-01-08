@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
 import { v4 as uuid } from "uuid";
 import { useDispatch, useSelector } from "react-redux";
-import { addCol, moveCol, rowIsDraggedOver } from "../actions/actions";
+
 import Col from "./Col";
+import { addCol } from "../actions/actions--form";
+import { moveCol, rowIsDraggedOver } from "../actions/actions--drag-n-drop";
 
 const Row = ({ row }) => {
   const { colDragged, colDraggedOver, rowDraggedOver } = useSelector(
-    (state) => state.form
+    (state) => state.dragNDrop
   );
   const dispatch = useDispatch();
 
