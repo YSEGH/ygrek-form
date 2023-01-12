@@ -13,6 +13,17 @@ const saveForm = (data) => async (dispatch) => {
   }
 };
 
+const updateForm = (data) => async (dispatch) => {
+  dispatch({ type: "REQUEST_START" });
+  try {
+    const response = await axios.post(baseURL + "/update", data);
+    dispatch({ type: "UPDATE_FORM_SUCCESS", data: response.data });
+  } catch (error) {
+    console.log("error", error);
+    dispatch({ type: "REQUEST_ERROR", payload: error.response.data });
+  }
+};
+
 const getForm = () => async (dispatch) => {
   dispatch({ type: "REQUEST_START" });
   try {
@@ -36,4 +47,4 @@ const getFormById = (data) => async (dispatch) => {
     dispatch({ type: "REQUEST_ERROR", payload: error.response.data });
   }
 };
-export { saveForm, getForm, getFormById };
+export { saveForm, updateForm, getForm, getFormById };

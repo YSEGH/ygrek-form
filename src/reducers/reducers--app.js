@@ -19,3 +19,7 @@ const appReducer = (
 };
 
 export { appReducer };
+/* A FAIRE : 
+  Gérer la route update,
+  Reset le form quand on change de page ou de parametre
+  */

@@ -3,7 +3,7 @@ import { v4 as uuid } from "uuid";
 import { useDispatch, useSelector } from "react-redux";
 import Row from "./Row";
 import Modal from "./Modal";
-import { saveForm } from "../actions/actions--api";
+import { saveForm, updateForm } from "../actions/actions--api";
 import { addRow } from "../actions/actions--form";
 
 const Form = () => {
@@ -11,7 +11,7 @@ const Form = () => {
   const { modal, active_col, dragging } = useSelector(
     (state) => state.dragNDrop
   );
-  const { form_title, form_id, form_class, form_theme, rows } = useSelector(
+  const { id, form_title, form_id, form_class, form_theme, rows } = useSelector(
     (state) => state.form
   );
   const [formTitle, setFormTitle] = useState(form_title);
@@ -21,14 +21,28 @@ const Form = () => {
 
   const saveFormHandler = (e) => {
     e.preventDefault();
-    const form = {
+    let form = {
       form_title: formTitle,
       form_id: formID,
-      form_class: formClass,
+      form_class: JSON.stringify(
+        formClass.split(",").map((element) => element.trim())
+      ),
       form_theme: formTheme,
       rows: JSON.stringify(rows),
     };
-    dispatch(saveForm(form));
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const param_id = urlParams.get("id");
+    if (!param_id) {
+      console.log("save");
+      /*       dispatch(saveForm(form));
+       */
+    } else {
+      console.log("update");
+      form.id = id;
+      /*       dispatch(updateForm(form));
+       */
+    }
   };
 
   const addRowHandler = () => {

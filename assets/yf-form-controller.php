@@ -85,32 +85,30 @@ if (!class_exists('YF_form_controller')) :
             $query .= ")";
             try {
                 $form = $wpdb->get_results($query)[0];
-
                 if ($wpdb->last_error) {
                     throw new Exception($wpdb->last_error, 500);
                 }
             } catch (\Exception $e) {
                 throw new Exception($e->getMessage(), 1);
             }
-            var_dump($form);
             $form_html = '';
             if ($form) {
-                $form_html = '<form action="" id="' . $form->form_id . '" class="ygrek_form ' . $form->form_class . ' ' . $form->form_theme . '">';
+                $form_html = '<form action="" data-form="ygrek-form" id="' . $form->form_id . '" class="ygrek_form ' . implode(' ', json_decode($form->form_class)) . ' ' . $form->form_theme . '">';
                 foreach (json_decode($form->rows) as $row) {
                     $form_html .= '<div class="ygrek_form--row">';
                     foreach ($row->cols as $col) {
-                        $form_html .= '<div class="' . implode(' ', $col->classname) . implode(' ', $col->custom_class_field) . '">';
+                        $form_html .= '<div class="' . implode(' ', $col->classname) . ' ' . implode(' ', $col->custom_class_field) . '">';
                         $form_html .= '<div class="ygrek_form--element">';
                         $form_html .= '<label class="ygrek_form--label ' . implode(' ', $col->custom_class_label) . '" for="' . $col->for . '">' . $col->label . '</label>';
                         switch ($col->input_element) {
                             case 'input':
                                 $form_html .= '<div class="ygrek_form--field-wrapper">';
-                                $form_html .= '<input class="ygrek_form--field ygrek_form--field-input ' . implode(' ', $col->custom_class_input) . '" name="' . $col->for . '" type="' . $col->input_type . '" placeholder="' . $col->placeholder . '"></input>';
+                                $form_html .= '<input class="ygrek_form--field ygrek_form--field-input ' . implode(' ', $col->custom_class_input) . '" data-title="' . $col->label . '" name="' . $col->for . '" type="' . $col->input_type . '" placeholder="' . $col->placeholder . '"></input>';
                                 $form_html .= '</div>';
                                 break;
                             case 'select':
                                 $form_html .= '<div class="ygrek_form--field-wrapper">';
-                                $form_html .= '<select name="' . $col->for . '" class="ygrek_form--field ygrek_form--field-select ' . implode(' ', $col->custom_class_input) . '">';
+                                $form_html .= '<select name="' . $col->for . '" class="ygrek_form--field ygrek_form--field-select ' . implode(' ', $col->custom_class_input) . '" data-title="' . $col->label . '">';
                                 $form_html .= '<option>' . $col->placeholder . '</option>';
                                 foreach ($col->options as $option) {
                                     $form_html .= '<option value="' . $option->value . '">' . $option->title . '</option>';
@@ -120,7 +118,7 @@ if (!class_exists('YF_form_controller')) :
                                 break;
                             case 'textarea':
                                 $form_html .= '<div class="ygrek_form--field-wrapper">';
-                                $form_html .= '<textarea name="message" class="ygrek_form--field ygrek_form--field-textarea ' . implode(' ', $col->custom_class_input) . '" placeholder="' . $col->placeholder . '"></textarea>';
+                                $form_html .= '<textarea name="message" class="ygrek_form--field ygrek_form--field-textarea ' . implode(' ', $col->custom_class_input) . '" data-title="' . $col->label . '" placeholder="' . $col->placeholder . '"></textarea>';
                                 $form_html .= '</div>';
                                 break;
                             default:

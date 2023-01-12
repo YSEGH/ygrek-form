@@ -24,9 +24,7 @@ export const App = () => {
       dispatch(getFormById({ conditions: conditions }));
       params = { ...params, id: param_id };
     }
-    if (page !== params.target) {
-      dispatch(setPage(params));
-    }
+    dispatch(setPage(params));
     return () => {};
   }, [page]);
 

@@ -1,5 +1,6 @@
 const formReducer = (
   state = {
+    id: "",
     form_title: "",
     form_id: "",
     form_class: [],
@@ -39,15 +40,18 @@ const formReducer = (
   switch (action.type) {
     case "SET_FORM":
       newState = {
+        ...state,
+        id: action.data.id,
         form_title: action.data.form_title,
         form_id: action.data.form_id,
-        form_class: action.data.form_class.split(","),
+        form_class: JSON.parse(action.data.form_class),
         form_theme: action.data.form_theme,
         rows: JSON.parse(action.data.rows),
       };
       return newState;
     case "RESET_FORM":
       return {
+        ...state,
         form_title: "",
         form_id: "",
         form_class: [],
