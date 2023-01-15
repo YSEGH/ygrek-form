@@ -1,25 +1,24 @@
+import { getIdParam, getPageParam } from "../actions/actions--app";
+
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
-const param_id = urlParams.get("id");
-const param_page = urlParams.get("page");
-let page = param_page.split("-")[2];
+const page = getPageParam(null, urlParams);
+const id = getIdParam(null, urlParams);
+
 const appReducer = (
   state = {
-    page: page,
+    params: { param_id: id, param_page: page },
   },
   action
 ) => {
+  let newState;
   switch (action.type) {
-    case "SET_PAGE":
-      console.log("action.data", action.data);
-      return { ...state, page: action.data.target };
+    case "SET_PARAMS":
+      newState = { ...state, params: action.data };
+      return newState;
     default:
       return state;
   }
 };
 
 export { appReducer };
-/* A FAIRE : 
-  Gérer la route update,
-  Reset le form quand on change de page ou de parametre
-  */

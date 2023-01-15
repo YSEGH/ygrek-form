@@ -32,13 +32,6 @@ class YF_plugin
     function __construct()
     {
         require_once YF_DIR . '/assets/yf-init.php';
-        //        add_shortcode('load_form', [$this, 'load_form_shortcode']);
     }
-
-    /*     function load_form_shortcode()
-    {
-        $form = new Form();
-        return $form->generateForm();
-    } */
 }
 return new YF_plugin();

@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import { v4 as uuid } from "uuid";
 import { useDispatch, useSelector } from "react-redux";
-
-import Col from "./Col";
+import DragNDropCol from "./DragNDropCol";
 import { addCol } from "../actions/actions--form";
 import { moveCol, rowIsDraggedOver } from "../actions/actions--drag-n-drop";
 
-const Row = ({ row }) => {
+const DragNDropRow = ({ row }) => {
   const { colDragged, colDraggedOver, rowDraggedOver } = useSelector(
     (state) => state.dragNDrop
   );
@@ -85,7 +84,7 @@ const Row = ({ row }) => {
     >
       <div className="ygrek_form--col_container">
         {row.cols.map((col) => (
-          <Col key={col.col_id} col={col} />
+          <DragNDropCol key={col.col_id} col={col} />
         ))}
       </div>
       <button
@@ -100,4 +99,4 @@ const Row = ({ row }) => {
   );
 };
 
-export default Row;
+export default DragNDropRow;

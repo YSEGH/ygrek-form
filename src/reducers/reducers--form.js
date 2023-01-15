@@ -1,6 +1,5 @@
 const formReducer = (
   state = {
-    id: "",
     form_title: "",
     form_id: "",
     form_class: [],
@@ -41,7 +40,6 @@ const formReducer = (
     case "SET_FORM":
       newState = {
         ...state,
-        id: action.data.id,
         form_title: action.data.form_title,
         form_id: action.data.form_id,
         form_class: JSON.parse(action.data.form_class),
@@ -50,7 +48,7 @@ const formReducer = (
       };
       return newState;
     case "RESET_FORM":
-      return {
+      newState = {
         ...state,
         form_title: "",
         form_id: "",
@@ -58,6 +56,7 @@ const formReducer = (
         form_theme: "basic",
         rows: [],
       };
+      return newState;
     case "ADD_ROW":
       newState = {
         ...state,
@@ -124,7 +123,6 @@ const formReducer = (
         .reorderColIndex();
       return { ...state, rows: rows };
     case "UPDATE_COL":
-      console.log("reducer_form", action.data);
       rows = state.rows;
       row_index = action.data.row_index;
       col_index = action.data.col_index;

@@ -22,12 +22,39 @@ if (file_exists(YF_DIR . '/assets/yf-admin-menu.php')) {
 }
 
 /**
- * SQL Table manager.
+ * SQL Form Table manager.
  *
  * @since 1.0.0
  */
-if (file_exists(YF_DIR . '/assets/yf-tables.php')) {
-    require_once(YF_DIR . '/assets/yf-tables.php');
+if (file_exists(YF_DIR . '/assets/yf-form-tables.php')) {
+    require_once(YF_DIR . '/assets/yf-form-tables.php');
+}
+
+/**
+ * SQL Submission Table manager.
+ *
+ * @since 1.0.0
+ */
+if (file_exists(YF_DIR . '/assets/yf-submission-tables.php')) {
+    require_once(YF_DIR . '/assets/yf-submission-tables.php');
+}
+
+/**
+ * On activate plugin.
+ *
+ * @since 1.0.0
+ */
+if (file_exists(YF_DIR . '/assets/yf-on-activate.php')) {
+    require_once(YF_DIR . '/assets/yf-on-activate.php');
+}
+
+/**
+ * On deactivate plugin.
+ *
+ * @since 1.0.0
+ */
+if (file_exists(YF_DIR . '/assets/yf-on-deactivate.php')) {
+    require_once(YF_DIR . '/assets/yf-on-deactivate.php');
 }
 
 /**
@@ -56,10 +83,26 @@ if (file_exists(YF_DIR . '/assets/yf-form-controller.php')) {
     require_once(YF_DIR . '/assets/yf-form-controller.php');
 }
 /**
- * API file.
+ * Form API file.
  *
  * @since 1.0.0
  */
-if (file_exists(YF_DIR . '/assets/yf-api.php')) {
-    require_once(YF_DIR . '/assets/yf-api.php');
+if (file_exists(YF_DIR . '/assets/yf-form-api.php')) {
+    require_once(YF_DIR . '/assets/yf-form-api.php');
+}
+/**
+ * Submission controller.
+ *
+ * @since 1.0.0
+ */
+if (file_exists(YF_DIR . '/assets/yf-submission-controller.php')) {
+    require_once(YF_DIR . '/assets/yf-submission-controller.php');
+}
+/**
+ * Submission API file.
+ *
+ * @since 1.0.0
+ */
+if (file_exists(YF_DIR . '/assets/yf-submission-api.php')) {
+    require_once(YF_DIR . '/assets/yf-submission-api.php');
 }

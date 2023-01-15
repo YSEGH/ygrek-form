@@ -14,7 +14,6 @@ if (!defined('ABSPATH')) exit;
 if (!class_exists('YF_form_controller')) :
     class YF_form_controller
     {
-
         public function __construct()
         {
             global $wpdb;
@@ -66,8 +65,30 @@ if (!class_exists('YF_form_controller')) :
             }
         }
 
-        public function update()
+        public function update($data)
         {
+            global $wpdb;
+            $form_table = $wpdb->prefix . 'yf_form';
+            try {
+                $wpdb->update(
+                    $form_table,
+                    array(
+                        'form_title' => $data['form_title'],
+                        'form_class' => $data['form_class'],
+                        'form_theme' => $data['form_theme'],
+                        'form_id' => $data['form_id'],
+                        'rows' => $data['rows'],
+                    ),
+                    array('id' => $data['id']),
+                    array('%s', '%s', '%s', '%s', '%s'),
+                    array('%s')
+                );
+                if ($wpdb->last_error) {
+                    throw new Exception($wpdb->last_error, 500);
+                }
+            } catch (\Exception $e) {
+                throw new Exception($e->getMessage(), 1);
+            }
         }
         public function delete()
         {
@@ -93,7 +114,7 @@ if (!class_exists('YF_form_controller')) :
             }
             $form_html = '';
             if ($form) {
-                $form_html = '<form action="" data-form="ygrek-form" id="' . $form->form_id . '" class="ygrek_form ' . implode(' ', json_decode($form->form_class)) . ' ' . $form->form_theme . '">';
+                $form_html = '<form action="" data-form="ygrek-form" data-id="' . $form->id . '" id="' . $form->form_id . '" class="ygrek_form ' . implode(' ', json_decode($form->form_class)) . ' ' . $form->form_theme . '">';
                 foreach (json_decode($form->rows) as $row) {
                     $form_html .= '<div class="ygrek_form--row">';
                     foreach ($row->cols as $col) {
@@ -130,11 +151,11 @@ if (!class_exists('YF_form_controller')) :
                     }
                     $form_html .= '</div>';
                 }
-                $form_html .= '<button type="submit">Valider</button>';
+                $form_html .= '<button form="' . $form->form_id . '" type="submit">Valider</button>';
                 $form_html .= '</form>';
             }
             return $form_html;
         }
     }
 endif;
-return new YF_form_controller;
+return new YF_form_controller();

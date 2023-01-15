@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { setPage } from "../actions/actions--app";
+import { setPage, setParams } from "../actions/actions--app";
 
 const TabsHeader = () => {
   const dispatch = useDispatch();
@@ -13,7 +13,7 @@ const TabsHeader = () => {
       }
     }
     e.target.classList.add("is-active");
-    dispatch(setPage({ target: target }));
+    dispatch(setParams({ page: target }));
   };
   return (
     <>

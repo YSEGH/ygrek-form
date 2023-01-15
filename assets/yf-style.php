@@ -27,4 +27,4 @@ if (!class_exists('YF_style')) :
     }
 
 endif;
-return new YF_style;
+return new YF_style();

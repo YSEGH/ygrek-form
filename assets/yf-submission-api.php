@@ -3,7 +3,7 @@
 /**
  * VF API
  *
- * This is the file for API.
+ * This is the file for submission API.
  *
  * @package YF
  * @since 	0.0.1
@@ -12,50 +12,50 @@
 
 if (!defined('ABSPATH')) exit;
 
-if (!class_exists('YF_api')) :
+if (!class_exists('YF_submission_api')) :
 
-    class YF_api
+    class YF_submission_api
     {
-        public $form;
+        public $submission;
         function __construct()
         {
-            $this->form = new YF_form_controller();
+            $this->submission = new YF_submission_controller();
             add_action('rest_api_init', [$this, 'register_route']);
         }
 
         function register_route()
         {
             register_rest_route(
-                'yf-form',
+                'yf-form/submission',
                 '/add',
                 array(
                     'methods' => 'POST',
-                    'callback' => array($this, 'add_form')
+                    'callback' => array($this, 'add_submission')
                 )
             );
             register_rest_route(
-                'yf-form',
+                'yf-form/submission',
                 '/get',
                 array(
                     'methods' => 'POST',
-                    'callback' => array($this, 'get_form')
+                    'callback' => array($this, 'get_submission')
                 )
             );
         }
 
-        function add_form(WP_REST_Request $request)
+        function add_submission(WP_REST_Request $request)
         {
             $form = [
-                'form_title' => $request['form_title'],
                 'form_id' => $request['form_id'],
-                'form_class' => $request['form_class'],
-                'form_theme' => $request['form_theme'],
-                'rows' => $request['rows'],
+                'timestamp' => $request['timestamp'],
+                'data' => $request['data'],
             ];
             try {
-                $this->form->post($form);
+                $this->submission->post($form);
                 return new WP_REST_Response(
-                    'Le formulaire a été sauvegardé avec succès',
+                    [
+                        'message' => 'Le soumission a été sauvegardée avec succès',
+                    ],
                     200
                 );
             } catch (Exception $e) {
@@ -67,16 +67,20 @@ if (!class_exists('YF_api')) :
             }
         }
 
-        function get_form(WP_REST_Request $request)
+        function get_submission(WP_REST_Request $request)
         {
             $conditions = null;
             if (isset($request['conditions'])) {
                 $conditions = $request['conditions'];
             }
+
             try {
-                $result = $this->form->get($conditions);
+                $result = $this->submission->get($conditions);
                 return new WP_REST_Response(
-                    $result,
+                    [
+                        'submissions' => $result,
+                        'message' => "Les soumissions ont été récupérées avec succès."
+                    ],
                     200
                 );
             } catch (Exception $e) {
@@ -90,4 +94,4 @@ if (!class_exists('YF_api')) :
     }
 
 endif;
-return new YF_api;
+return new YF_submission_api();

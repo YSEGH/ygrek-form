@@ -12,45 +12,23 @@
 // Exit if accessed directly.
 if (!defined('ABSPATH')) exit;
 
-if (!class_exists('YF_tables')) :
+if (!class_exists('YF_submission_tables')) :
 
-    class YF_tables
+    class YF_submission_tables
     {
-        function __construct()
-        {
-            register_activation_hook(YF_DIR . '/ygrek-form.php', [$this, 'on_activate']);
-            register_deactivation_hook(YF_DIR . '/ygrek-form.php', [$this, 'on_deactivate']);
-        }
 
-        function on_activate()
-        {
-            $this->create_tables();
-        }
-
-        function on_deactivate()
-        {
-            $this->remove_tables();
-        }
-
-        function create_tables()
+        function create_table()
         {
             global $wpdb;
             $plugin_name_db_version = '1.0';
             $charset_collate = $wpdb->get_charset_collate();
-            $form_table = $wpdb->prefix . 'yf_form';
             $submission_table = $wpdb->prefix . 'yf_submission';
             $queries = [
-                "CREATE TABLE $form_table (
-                    `id` mediumint(9) NOT NULL AUTO_INCREMENT,
-                    `form_title` mediumtext NULL,
-                    `form_id` mediumtext NULL,
-                    `form_class` mediumtext NULL,
-                    `form_theme` tinytext NULL,
-                    `rows` longtext NULL,
-                    PRIMARY KEY  (id)
-                    ) $charset_collate;",
                 "CREATE TABLE $submission_table (
                     `id` mediumint(9) NOT NULL AUTO_INCREMENT,
+                    `form_id` mediumint(9) NOT NULL,
+                    `timestamp` bigint(20) unsigned NOT NULL,
+                    `data` longtext NOT NULL,
                     PRIMARY KEY  (id)
                     ) $charset_collate;"
             ];
@@ -61,13 +39,11 @@ if (!class_exists('YF_tables')) :
             add_option('ygrek_form_db_version', $plugin_name_db_version);
         }
 
-        function remove_tables()
+        function remove_table()
         {
             global $wpdb;
-            $form_table = $wpdb->prefix . 'yf_form';
             $submission_table = $wpdb->prefix . 'yf_submission';
             $queries = [
-                "DROP TABLE IF EXISTS $form_table",
                 "DROP TABLE IF EXISTS $submission_table",
             ];
             require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
@@ -79,4 +55,3 @@ if (!class_exists('YF_tables')) :
     }
 
 endif;
-return new YF_tables;

@@ -1,41 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getFormById } from "./actions/actions--api";
-import { setPage } from "./actions/actions--app";
-import Form from "./components/Form";
-import Liste from "./components/Liste";
+import { setParams } from "./actions/actions--app";
 import TabsHeader from "./components/TabsHeader";
+import Form from "./page/Form";
+import List from "./page/List";
 
 export const App = () => {
-  const { page } = useSelector((state) => state.app);
+  const {
+    params: { param_page },
+  } = useSelector((state) => state.app);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const param_id = urlParams.get("id");
-    const param_page = urlParams.get("page");
-    let params = { target: param_page.split("-")[2] };
-    if (param_id) {
-      let conditions = {
-        id: param_id,
-      };
-      dispatch(getFormById({ conditions: conditions }));
-      params = { ...params, id: param_id };
-    }
-    dispatch(setPage(params));
+    dispatch(setParams());
     return () => {};
-  }, [page]);
+  }, []);
+
+  useEffect(() => {
+    return () => {};
+  }, [param_page]);
 
   return (
     <>
       <TabsHeader />
-      {page == "ajouter" ? (
+      {param_page == "ajouter" ? (
         <Form />
-      ) : page == "liste" ? (
-        <Liste />
-      ) : page == "soumissions" ? (
+      ) : param_page == "liste" ? (
+        <List />
+      ) : param_page == "soumissions" ? (
         <h1>Soumissions</h1>
       ) : (
         <div>

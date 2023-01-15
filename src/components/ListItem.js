@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setPage } from "../actions/actions--app";
+import { setParams } from "../actions/actions--app";
 
 const ListItem = ({ form }) => {
   const dispatch = useDispatch();
 
   const editHandler = (target) => {
-    dispatch(setPage({ target: target, id: form.id }));
+    dispatch(setParams({ page: target, id: form.id }));
   };
 
   useEffect(() => {

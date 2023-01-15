@@ -1,7 +1,13 @@
 jQuery(function ($) {
+  const baseURL =
+    window.location.origin + "/monouebsite/wp-json/yf-form/submission";
+
   $('form[data-form="ygrek-form"]').submit((e) => {
     e.preventDefault();
+    let form = {};
     let data = [];
+    form.form_id = $(e.target).data("id");
+    form.timestamp = Date.now();
     $(`form#${e.target.id} :input`).each(function () {
       if (this.type !== "submit") {
         let input = {};
@@ -10,6 +16,15 @@ jQuery(function ($) {
         data.push(input);
       }
     });
-    console.log(data);
+    form.data = JSON.stringify(data);
+    console.log(form);
+    $.ajax({
+      type: "POST",
+      url: baseURL + "/add",
+      data: form,
+      dataType: "json",
+    }).done(function (data) {
+      console.log(data);
+    });
   });
 });

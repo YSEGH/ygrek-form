@@ -9,7 +9,7 @@ import {
   setColActive,
 } from "../actions/actions--drag-n-drop";
 
-const Col = ({ col }) => {
+const DragNDropCol = ({ col }) => {
   const { colDragged, colDraggedOver } = useSelector(
     (state) => state.dragNDrop
   );
@@ -91,4 +91,4 @@ const Col = ({ col }) => {
   );
 };
 
-export default Col;
+export default DragNDropCol;

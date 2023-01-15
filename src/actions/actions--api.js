@@ -1,50 +1,56 @@
 import axios from "axios";
 import { setForm } from "./actions--form";
-const baseURL = window.location.origin + "/monouebsite/wp-json/yf-form";
+const baseURL = window.location.origin + "/monouebsite/wp-json/yf-form/form";
 
 const saveForm = (data) => async (dispatch) => {
-  dispatch({ type: "REQUEST_START" });
+  dispatch({ type: "SAVE_FORM_REQUEST" });
   try {
     const response = await axios.post(baseURL + "/add", data);
-    dispatch({ type: "SAVE_FORM_SUCCESS", data: response.data });
+    dispatch({
+      type: "SAVE_FORM_SUCCESS",
+      message: response.data.message,
+    });
   } catch (error) {
-    console.log("error", error);
-    dispatch({ type: "REQUEST_ERROR", payload: error.response.data });
+    dispatch({ type: "SAVE_FORM_ERROR", message: error.response.data });
   }
 };
 
 const updateForm = (data) => async (dispatch) => {
-  dispatch({ type: "REQUEST_START" });
+  dispatch({ type: "UPDATE_FORM_REQUEST" });
   try {
-    const response = await axios.post(baseURL + "/update", data);
-    dispatch({ type: "UPDATE_FORM_SUCCESS", data: response.data });
+    const response = await axios.put(baseURL + "/update", data);
+    dispatch({ type: "UPDATE_FORM_SUCCESS", message: response.data.message });
   } catch (error) {
-    console.log("error", error);
-    dispatch({ type: "REQUEST_ERROR", payload: error.response.data });
+    dispatch({ type: "UPDATE_FORM_ERROR", message: error.response.data });
   }
 };
 
-const getForm = () => async (dispatch) => {
-  dispatch({ type: "REQUEST_START" });
+const getForms = () => async (dispatch) => {
+  dispatch({ type: "GET_FORMS_REQUEST" });
   try {
     const response = await axios.post(baseURL + "/get");
-    dispatch({ type: "GET_FORM_SUCCESS", data: response.data });
+    dispatch({
+      type: "GET_FORMS_SUCCESS",
+      data: response.data.form,
+      message: response.data.message,
+    });
   } catch (error) {
-    console.log("error", error);
-    dispatch({ type: "REQUEST_ERROR", payload: error.response.data });
+    dispatch({ type: "GET_FORMS_ERROR", message: error.response.data });
   }
 };
 
-const getFormById = (data) => async (dispatch) => {
-  dispatch({ type: "RESET_FORM" });
-  dispatch({ type: "REQUEST_START" });
+const getForm = (data) => async (dispatch) => {
+  dispatch({ type: "GET_FORM_REQUEST" });
   try {
     const response = await axios.post(baseURL + "/get", data);
-    dispatch({ type: "GET_FORM_SUCCESS", data: response.data });
-    console.log(response.data);
-    dispatch(setForm(response.data[0]));
+    dispatch({
+      type: "GET_FORM_SUCCESS",
+      data: response.data.form[0],
+      message: response.data.message,
+    });
+    dispatch(setForm(response.data.form[0]));
   } catch (error) {
-    dispatch({ type: "REQUEST_ERROR", payload: error.response.data });
+    dispatch({ type: "GET_FORM_ERROR", message: error.response.data });
   }
 };
-export { saveForm, updateForm, getForm, getFormById };
+export { saveForm, updateForm, getForms, getForm };

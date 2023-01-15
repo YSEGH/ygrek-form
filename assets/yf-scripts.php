@@ -36,4 +36,4 @@ if (!class_exists('YF_scripts')) :
     }
 
 endif;
-return new YF_scripts;
+return new YF_scripts();
