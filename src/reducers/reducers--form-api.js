@@ -40,7 +40,7 @@ const updateFormReducer = (
 
 const getFormsReducer = (
   state = {
-    data: [],
+    forms: [],
     loading: false,
     error: null,
     success: null,
@@ -54,7 +54,7 @@ const getFormsReducer = (
       return {
         ...state,
         loading: false,
-        data: action.data,
+        forms: action.data,
         success: action.message,
       };
     case "GET_FORMS_ERROR":
@@ -66,7 +66,7 @@ const getFormsReducer = (
 
 const getFormReducer = (
   state = {
-    data: {},
+    form: {},
     loading: false,
     error: null,
     success: null,
@@ -80,7 +80,7 @@ const getFormReducer = (
       return {
         ...state,
         loading: false,
-        data: action.data,
+        form: action.data,
         success: action.message,
       };
     case "GET_FORM_ERROR":

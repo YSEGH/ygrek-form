@@ -2,8 +2,9 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setParams } from "./actions/actions--app";
 import TabsHeader from "./components/TabsHeader";
-import Form from "./page/Form";
-import List from "./page/List";
+import DragNDrop from "./page/DragNDrop";
+import Forms from "./page/Forms";
+import Submissions from "./page/Submissions";
 
 export const App = () => {
   const {
@@ -25,11 +26,11 @@ export const App = () => {
     <>
       <TabsHeader />
       {param_page == "ajouter" ? (
-        <Form />
+        <DragNDrop />
       ) : param_page == "liste" ? (
-        <List />
+        <Forms />
       ) : param_page == "soumissions" ? (
-        <h1>Soumissions</h1>
+        <Submissions />
       ) : (
         <div>
           <h1>Cette page n'existe pas.</h1>

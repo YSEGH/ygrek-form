@@ -37,8 +37,22 @@ if (!class_exists('YF_submission_api')) :
                 'yf-form/submission',
                 '/get',
                 array(
-                    'methods' => 'POST',
-                    'callback' => array($this, 'get_submission')
+                    'methods' => 'GET',
+                    'callback' => array($this, 'get_submission'),
+                    'args' => [
+                        'id' => [
+                            'required' => false,
+                            'type'     => 'number',
+                        ],
+                        'form_id' => [
+                            'required' => false,
+                            'type'     => 'number',
+                        ],
+                        'seen' => [
+                            'required' => false,
+                            'type'     => 'boolean',
+                        ],
+                    ],
                 )
             );
         }
@@ -54,7 +68,7 @@ if (!class_exists('YF_submission_api')) :
                 $this->submission->post($form);
                 return new WP_REST_Response(
                     [
-                        'message' => 'Le soumission a été sauvegardée avec succès',
+                        'message' => 'La soumission a été sauvegardée avec succès',
                     ],
                     200
                 );
@@ -69,17 +83,38 @@ if (!class_exists('YF_submission_api')) :
 
         function get_submission(WP_REST_Request $request)
         {
+            $arg = $request->get_params();
+            try {
+                $result = $this->submission->get($arg);
+                return new WP_REST_Response(
+                    [
+                        'submissions' => $result,
+                        'message' => "Les soumissions ont été récupérées avec succès."
+                    ],
+                    200
+                );
+            } catch (Exception $e) {
+                return
+                    new WP_REST_Response(
+                        $e->getMessage(),
+                        500
+                    );
+            }
+        }
+
+        function delete_submission(WP_REST_Request $request)
+        {
             $conditions = null;
             if (isset($request['conditions'])) {
                 $conditions = $request['conditions'];
             }
 
             try {
-                $result = $this->submission->get($conditions);
+                $result = $this->submission->delete($conditions);
                 return new WP_REST_Response(
                     [
                         'submissions' => $result,
-                        'message' => "Les soumissions ont été récupérées avec succès."
+                        'message' => "Les soumissions ont été supprimées avec succès."
                     ],
                     200
                 );

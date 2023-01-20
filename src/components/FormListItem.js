@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setParams } from "../actions/actions--app";
 
-const ListItem = ({ form }) => {
+const FormListItem = ({ form }) => {
   const dispatch = useDispatch();
 
   const editHandler = (target) => {
@@ -28,4 +28,4 @@ const ListItem = ({ form }) => {
   );
 };
 
-export default ListItem;
+export default FormListItem;

@@ -32,6 +32,7 @@ if (!class_exists('YF_scripts')) :
         {
             wp_enqueue_script('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js');
             wp_enqueue_script('YF_form_submit', YF_URL . '/assets/js/form_submit.js', array('jquery'), time());
+            wp_enqueue_script('YF_form', YF_URL . '/assets/js/form.js', array('jquery'), time());
         }
     }
 

@@ -17,12 +17,8 @@ if (!class_exists('YF_style')) :
     {
         function __construct()
         {
-            add_action('admin_enqueue_scripts', [$this, 'enqueue_style']);
-        }
-        /* Enqueue style files */
-        function enqueue_style()
-        {
-            wp_enqueue_style('YF_style', YF_URL . '/assets/css/style.css', null, '1');
+            wp_register_style('YF_style', YF_URL . '/assets/css/style.css');
+            wp_enqueue_style('YF_style');
         }
     }
 

@@ -7,6 +7,8 @@ const id = getIdParam(null, urlParams);
 
 const appReducer = (
   state = {
+    page: page,
+    data: null,
     params: { param_id: id, param_page: page },
   },
   action

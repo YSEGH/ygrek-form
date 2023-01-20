@@ -43,16 +43,23 @@ if (!class_exists('YF_form_controller')) :
             }
         }
 
-        public function get($conditions)
+        public function get($arg)
         {
             global $wpdb;
             $form_table = $wpdb->prefix . 'yf_form';
             $query = "SELECT * FROM $form_table";
-            if ($conditions) {
-                if (isset($conditions['id'])) {
-                    $query .= " WHERE (id='" . $conditions['id'] . "'";
+            $count_arg = 0;
+            if (!empty($arg)) {
+                $query .= " WHERE ";
+                if (isset($arg['id'])) {
+                    $query .= " id = '" . $arg['id'] . "'";
                 }
-                $query .= ")";
+                if (isset($arg['form_id'])) {
+                    if ($count_arg > 0) {
+                        $query .= ' AND ';
+                    }
+                    $query .= " form_id = '" . $arg['form_id'] . "'";
+                }
             }
             try {
                 $result = $wpdb->get_results($query);

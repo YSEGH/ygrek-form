@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getForms } from "../actions/actions--api";
-import ListContainer from "../components/ListContainer";
+import { getForms } from "../actions/actions--form-api";
+import FormListContainer from "../components/FormListContainer";
 import Loader from "../components/Loader";
 
-const List = () => {
+const Forms = () => {
   const dispatch = useDispatch();
   const { success, error, loading } = useSelector((state) => state.getForms);
 
@@ -13,7 +13,7 @@ const List = () => {
     return () => {};
   }, []);
 
-  return <>{!loading ? <ListContainer /> : <Loader />}</>;
+  return <>{!loading ? <FormListContainer /> : <Loader />}</>;
 };
 
-export default List;
+export default Forms;

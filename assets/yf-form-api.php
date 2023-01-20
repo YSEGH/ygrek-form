@@ -37,8 +37,18 @@ if (!class_exists('YF_form_api')) :
                 'yf-form/form',
                 '/get',
                 array(
-                    'methods' => 'POST',
-                    'callback' => array($this, 'get_form')
+                    'methods' => 'GET',
+                    'callback' => array($this, 'get_form'),
+                    'args' => [
+                        'id' => [
+                            'required' => false,
+                            'type'     => 'number',
+                        ],
+                        'form_id' => [
+                            'required' => false,
+                            'type'     => 'number',
+                        ],
+                    ],
                 )
             );
             register_rest_route(
@@ -79,16 +89,12 @@ if (!class_exists('YF_form_api')) :
 
         function get_form(WP_REST_Request $request)
         {
-            $conditions = null;
-            if (isset($request['conditions'])) {
-                $conditions = $request['conditions'];
-            }
-
+            $arg = $request->get_params();
             try {
-                $result = $this->form->get($conditions);
+                $result = $this->form->get($arg);
                 return new WP_REST_Response(
                     [
-                        'form' => $result,
+                        'forms' => $result,
                         'message' => "Les formulaires ont été récupérés avec succès."
                     ],
                     200

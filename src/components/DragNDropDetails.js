@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { saveForm, updateForm } from "../actions/actions--api";
+import { saveForm, updateForm } from "../actions/actions--form-api";
 
-const FormInfos = () => {
+const DragNDropDetails = () => {
   const dispatch = useDispatch();
   const { form_title, form_id, form_class, form_theme, rows } = useSelector(
     (state) => state.form
@@ -102,4 +102,4 @@ const FormInfos = () => {
   );
 };
 
-export default FormInfos;
+export default DragNDropDetails;

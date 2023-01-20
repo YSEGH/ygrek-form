@@ -6,9 +6,10 @@ import {
   getFormsReducer,
   saveFormReducer,
   updateFormReducer,
-} from "./reducers/reducers--api";
+} from "./reducers/reducers--form-api";
 import { appReducer } from "./reducers/reducers--app";
 import { formReducer } from "./reducers/reducers--form";
+import { getSubmissionReducer } from "./reducers/reducers--submission-api";
 
 const reducer = combineReducers({
   dragNDrop: dragNDropReducer,
@@ -18,6 +19,7 @@ const reducer = combineReducers({
   update: updateFormReducer,
   getForms: getFormsReducer,
   getForm: getFormReducer,
+  getSubmission: getSubmissionReducer,
 });
 
 /* const composeEnhancer = compose; */

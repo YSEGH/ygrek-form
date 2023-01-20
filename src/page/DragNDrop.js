@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getForm } from "../actions/actions--api";
+import { getForm } from "../actions/actions--form-api";
 import { resetForm } from "../actions/actions--form";
 import DragNDropForm from "../components/DragNDropForm";
-import FormInfos from "../components/FormInfos";
+import DragNDropDetails from "../components/DragNDropDetails";
 import Loader from "../components/Loader";
 
-const Form = () => {
+const DragNDrop = () => {
   const dispatch = useDispatch();
   const {
     params: { param_id },
@@ -16,7 +16,7 @@ const Form = () => {
 
   useEffect(() => {
     if (param_id) {
-      dispatch(getForm({ conditions: { id: param_id } }));
+      dispatch(getForm({ id: param_id }));
     } else {
       dispatch(resetForm());
     }
@@ -28,7 +28,7 @@ const Form = () => {
       {!loading ? (
         <div className="page--form">
           <div className="form-details--container">
-            <FormInfos />
+            <DragNDropDetails />
           </div>
           <div className="form-drag-n-drop--container">
             <DragNDropForm />
@@ -41,4 +41,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default DragNDrop;

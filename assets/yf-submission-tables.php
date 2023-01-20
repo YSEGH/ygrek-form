@@ -29,6 +29,7 @@ if (!class_exists('YF_submission_tables')) :
                     `form_id` mediumint(9) NOT NULL,
                     `timestamp` bigint(20) unsigned NOT NULL,
                     `data` longtext NOT NULL,
+                    `seen` boolean DEFAULT false,
                     PRIMARY KEY  (id)
                     ) $charset_collate;"
             ];
