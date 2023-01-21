@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getSubmission } from "../actions/actions--submission-api";
+import { getSubmission } from "../actions/action--submission";
 import Loader from "../components/Loader";
 import SubmissionListContainer from "../components/SubmissionListContainer";
 import SubmissionListFilter from "../components/SubmissionListFilter";
@@ -8,11 +8,11 @@ import SubmissionListFilter from "../components/SubmissionListFilter";
 const Submissions = () => {
   const dispatch = useDispatch();
   const { loading, error, success, submissions } = useSelector(
-    (state) => state.getSubmission
+    (state) => state.submission
   );
 
   useEffect(() => {
-    if (submissions.length() === 0) {
+    if (submissions.length === 0) {
       dispatch(getSubmission([]));
     }
     return () => {};

@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { v4 as uuid } from "uuid";
 import { useDispatch, useSelector } from "react-redux";
 import DragNDropCol from "./DragNDropCol";
-import { addCol } from "../actions/actions--form";
-import { moveCol, rowIsDraggedOver } from "../actions/actions--drag-n-drop";
+import { moveCol, rowIsDraggedOver } from "../actions/action--dragNDrop";
+import { addCol } from "../actions/action--dragNDropForm";
 
 const DragNDropRow = ({ row }) => {
   const { colDragged, colDraggedOver, rowDraggedOver } = useSelector(

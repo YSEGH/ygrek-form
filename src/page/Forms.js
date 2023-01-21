@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getForms } from "../actions/actions--form-api";
+import { getForm } from "../actions/action--form";
 import FormListContainer from "../components/FormListContainer";
 import Loader from "../components/Loader";
 
 const Forms = () => {
   const dispatch = useDispatch();
-  const { success, error, loading } = useSelector((state) => state.getForms);
+  const { success, error, loading } = useSelector((state) => state.form);
 
   useEffect(() => {
-    dispatch(getForms({}));
+    dispatch(getForm({}, false));
     return () => {};
   }, []);
 

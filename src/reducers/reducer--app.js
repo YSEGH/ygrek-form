@@ -1,4 +1,4 @@
-import { getIdParam, getPageParam } from "../actions/actions--app";
+import { getIdParam, getPageParam } from "../actions/action--app";
 
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
@@ -7,8 +7,6 @@ const id = getIdParam(null, urlParams);
 
 const appReducer = (
   state = {
-    page: page,
-    data: null,
     params: { param_id: id, param_page: page },
   },
   action

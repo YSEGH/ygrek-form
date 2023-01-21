@@ -7,7 +7,7 @@ import {
   moveCol,
   openModal,
   setColActive,
-} from "../actions/actions--drag-n-drop";
+} from "../actions/action--dragNDrop";
 
 const DragNDropCol = ({ col }) => {
   const { colDragged, colDraggedOver } = useSelector(

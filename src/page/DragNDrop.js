@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getForm } from "../actions/actions--form-api";
-import { resetForm } from "../actions/actions--form";
 import DragNDropForm from "../components/DragNDropForm";
 import DragNDropDetails from "../components/DragNDropDetails";
 import Loader from "../components/Loader";
+import { getForm } from "../actions/action--form";
+import { resetForm } from "../actions/action--dragNDropForm";
 
 const DragNDrop = () => {
   const dispatch = useDispatch();
@@ -12,31 +12,28 @@ const DragNDrop = () => {
     params: { param_id },
   } = useSelector((state) => state.app);
 
-  const { loading, error, success } = useSelector((state) => state.getForm);
+  const { loading, error, success } = useSelector((state) => state.form);
 
   useEffect(() => {
     if (param_id) {
-      dispatch(getForm({ id: param_id }));
-    } else {
-      dispatch(resetForm());
+      dispatch(getForm({ id: param_id }, true));
     }
-    return () => {};
+    return () => {
+      dispatch(resetForm());
+    };
   }, [param_id]);
 
   return (
     <>
-      {!loading ? (
-        <div className="page--form">
-          <div className="form-details--container">
-            <DragNDropDetails />
-          </div>
-          <div className="form-drag-n-drop--container">
-            <DragNDropForm />
-          </div>
+      <div className="page--form">
+        <div className="form-details--container">
+          <DragNDropDetails />
         </div>
-      ) : (
-        <Loader />
-      )}
+        <div className="form-drag-n-drop--container">
+          <DragNDropForm />
+        </div>
+      </div>
+      {loading && <Loader />}
     </>
   );
 };

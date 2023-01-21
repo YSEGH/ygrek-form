@@ -1,4 +1,4 @@
-const formReducer = (
+const dragNDropFormReducer = (
   state = {
     form_title: "",
     form_id: "",
@@ -227,4 +227,4 @@ Array.prototype.reorderColIndex = function () {
   }
   return this;
 };
-export { formReducer };
+export { dragNDropFormReducer };

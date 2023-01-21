@@ -1,4 +1,4 @@
-const getSubmissionReducer = (
+const submissionReducer = (
   state = {
     submissions: [],
     loading: false,
@@ -24,4 +24,4 @@ const getSubmissionReducer = (
   }
 };
 
-export { getSubmissionReducer };
+export { submissionReducer };

@@ -55,6 +55,20 @@ if (!class_exists('YF_submission_api')) :
                     ],
                 )
             );
+            register_rest_route(
+                'yf-form/submission',
+                '/delete',
+                array(
+                    'methods' => 'DELETE',
+                    'callback' => array($this, 'delete_submission'),
+                    'args' => [
+                        'id' => [
+                            'required' => true,
+                            'type'     => 'number',
+                        ],
+                    ],
+                )
+            );
         }
 
         function add_submission(WP_REST_Request $request)
@@ -65,6 +79,7 @@ if (!class_exists('YF_submission_api')) :
                 'data' => $request['data'],
             ];
             try {
+                $this->submission->check_submission($form['data']);
                 $this->submission->post($form);
                 return new WP_REST_Response(
                     [
@@ -73,10 +88,11 @@ if (!class_exists('YF_submission_api')) :
                     200
                 );
             } catch (Exception $e) {
+                $error = json_decode($e->getMessage());
                 return
                     new WP_REST_Response(
-                        $e->getMessage(),
-                        500
+                        $error,
+                        $e->getCode()
                     );
             }
         }
@@ -104,16 +120,11 @@ if (!class_exists('YF_submission_api')) :
 
         function delete_submission(WP_REST_Request $request)
         {
-            $conditions = null;
-            if (isset($request['conditions'])) {
-                $conditions = $request['conditions'];
-            }
-
+            $arg = $request->get_params();
             try {
-                $result = $this->submission->delete($conditions);
+                $this->submission->delete($arg);
                 return new WP_REST_Response(
                     [
-                        'submissions' => $result,
                         'message' => "Les soumissions ont été supprimées avec succès."
                     ],
                     200

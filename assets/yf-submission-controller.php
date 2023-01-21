@@ -14,6 +14,64 @@ if (!defined('ABSPATH')) exit;
 if (!class_exists('YF_submission_controller')) :
     class YF_submission_controller
     {
+        public function check_submission(string $data)
+        {
+            $data = json_decode($data);
+            $exceptions = [];
+            foreach ($data as $element) {
+                $required = $this->is_required($element);
+                if ($required) {
+                    $exceptions[$element->title] = $required;
+                }
+                switch ($element->title) {
+                    case "nom":
+                    case "prenom":
+                    case "texte_court":
+                    case "texte_long":
+                        break;
+                    case "telephone":
+                        break;
+                    case "file":
+                        break;
+                    case "date":
+                        break;
+                    case "email":
+                        if (!array_key_exists($element->title, $exceptions)) {
+                            $email = $this->is_email($element);
+                            if ($email) {
+                                $exceptions[$element->title] = $email;
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+            if (!empty($exceptions)) {
+                throw new Exception(json_encode($exceptions), 400);
+            }
+        }
+
+        protected function is_required(object $element)
+        {
+            if ($element->required === TRUE) {
+                if ($element->value === '') {
+                    return [
+                        'col_id' => $element->col_id,
+                        'message' => 'Ce champ est requis.',
+                    ];
+                };
+            }
+        }
+        protected function is_email(object $element)
+        {
+            if (!filter_var($element->value, FILTER_VALIDATE_EMAIL)) {
+                return [
+                    'col_id' => $element->col_id,
+                    'message' => 'Merci de saisir une adresse email valide.',
+                ];
+            }
+        }
         public function post($form)
         {
             global $wpdb;
@@ -74,19 +132,8 @@ if (!class_exists('YF_submission_controller')) :
         {
             global $wpdb;
             $submission_table = $wpdb->prefix . 'yf_submission';
-            $query = "SELECT * FROM $submission_table";
-            if ($arg) {
-                $query .= "WHERE (";
-                if (isset($arg['id'])) {
-                    $query .= " id='" . $arg['id'] . "'";
-                }
-                if (isset($arg['form_id'])) {
-                    $query .= " id='" . $arg['id'] . "'";
-                }
-                $query .= ")";
-            }
             try {
-                $result = $wpdb->get_results($query);
+                $result = $wpdb->delete($submission_table, $arg);
                 if ($wpdb->last_error) {
                     throw new Exception($wpdb->last_error, 500);
                 }

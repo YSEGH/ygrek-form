@@ -55,6 +55,48 @@
   .ygrek_form--row
   .ygrek_form--col
   .ygrek_form--element
+  .ygrek_form--field-wrapper::after {
+  content: "";
+  height: 2px;
+  display: block;
+  position: absolute;
+  left: 50%;
+  right: 50%;
+  bottom: 0;
+  background-color: #a635ff;
+  transition: 0.2s linear;
+}
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element
+  .ygrek_form--field-wrapper:hover::after,
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.has_value
+  .ygrek_form--field-wrapper::after,
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.is_active
+  .ygrek_form--field-wrapper::after {
+  right: 0;
+  left: 0;
+}
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.is_error
+  .ygrek_form--field-wrapper::after {
+  right: 0;
+  left: 0;
+  background-color: #ff5a35;
+}
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element
   .ygrek_form--field-wrapper
   .ygrek_form--field {
   width: 100%;
@@ -76,6 +118,28 @@
 .ygrek_form.basic
   .ygrek_form--row
   .ygrek_form--col
+  .ygrek_form--element.is_active
+  .ygrek_form--field-wrapper
+  .ygrek_form--field.ygrek_form--field-input,
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.has_value
+  .ygrek_form--field-wrapper
+  .ygrek_form--field.ygrek_form--field-input {
+  border-color: #a635ff;
+}
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.is_error
+  .ygrek_form--field-wrapper
+  .ygrek_form--field.ygrek_form--field-input {
+  border-color: #ff5a35;
+}
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
   .ygrek_form--element
   .ygrek_form--field-wrapper
   .ygrek_form--field.ygrek_form--field-input::placeholder {
@@ -90,45 +154,20 @@
   color: #777771;
 }
 
-.ygrek_form.basic
-  .ygrek_form--row
-  .ygrek_form--col
-  .ygrek_form--element
-  .ygrek_form--field-wrapper::after {
-  content: "";
-  height: 2px;
-  display: block;
-  position: absolute;
-  left: 50%;
-  right: 50%;
-  bottom: 0;
-  background-color: #a635ff;
-  transition: 0.2s linear;
-}
-.ygrek_form.basic
-  .ygrek_form--row
-  .ygrek_form--col
-  .ygrek_form--element
-  .ygrek_form--field-wrapper:hover::after {
-  right: 0;
-  left: 0;
-}
-.ygrek_form.basic
-  .ygrek_form--row
-  .ygrek_form--col
-  .ygrek_form--element.is_error
-  .ygrek_form--field-wrapper:hover::after {
-  right: 0;
-  left: 0;
-  background-color: #ff5a35;
-}
 /* Form message error */
 .ygrek_form.basic
   .ygrek_form--row
   .ygrek_form--col
   .ygrek_form--element
-  .ygrek_form-error-message {
+  .ygrek_form--error-message {
   margin-top: 6px;
-  color: #ff5a35;
   font-size: 12px;
+}
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element
+  .ygrek_form--error-message
+  p {
+  color: #ff5a35;
 }

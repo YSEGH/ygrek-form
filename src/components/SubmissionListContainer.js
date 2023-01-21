@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import SubmissionListItem from "./SubmissionListItem";
 
 const SubmissionListContainer = () => {
-  const { submissions } = useSelector((state) => state.getSubmission);
+  const { submissions } = useSelector((state) => state.submission);
   return (
     <div>
       {submissions.map((submission) => (

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { saveForm, updateForm } from "../actions/actions--form-api";
+import { saveForm, updateForm } from "../actions/action--form";
 
 const DragNDropDetails = () => {
   const dispatch = useDispatch();
   const { form_title, form_id, form_class, form_theme, rows } = useSelector(
-    (state) => state.form
+    (state) => state.dragNDropForm
   );
   const {
     params: { param_id },
@@ -20,7 +20,7 @@ const DragNDropDetails = () => {
     e.preventDefault();
     let form = {
       form_title: formTitle,
-      form_id: formID,
+      form_id: formID.trim(),
       form_class: JSON.stringify(
         formClass.split(",").map((element) => element.trim())
       ),
@@ -76,6 +76,14 @@ const DragNDropDetails = () => {
           type="text"
           name="form_id"
           onChange={(e) => setFormID(e.target.value)}
+          onBlur={() =>
+            setFormID(
+              formID
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+            )
+          }
           value={formID}
         />
         <p></p>
@@ -86,6 +94,14 @@ const DragNDropDetails = () => {
           type="text"
           name="form_class"
           onChange={(e) => setFormClass(e.target.value)}
+          onBlur={() =>
+            setFormClass(
+              formClass
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+            )
+          }
           value={formClass}
         />
         <p></p>

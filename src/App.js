@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setParams } from "./actions/actions--app";
+import { setParams } from "./actions/action--app";
 import TabsHeader from "./components/TabsHeader";
 import DragNDrop from "./page/DragNDrop";
 import Forms from "./page/Forms";

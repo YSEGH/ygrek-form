@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 const Submission = () => {
-  const { data } = useSelector((state) => state.getSubmission);
+  const { data } = useSelector((state) => state.submission);
 
   useEffect(() => {
     return () => {};

@@ -1,25 +1,17 @@
 import { combineReducers, applyMiddleware, compose, createStore } from "redux";
 import thunk from "redux-thunk";
-import { dragNDropReducer } from "./reducers/reducers--drag-n-drop";
-import {
-  getFormReducer,
-  getFormsReducer,
-  saveFormReducer,
-  updateFormReducer,
-} from "./reducers/reducers--form-api";
-import { appReducer } from "./reducers/reducers--app";
-import { formReducer } from "./reducers/reducers--form";
-import { getSubmissionReducer } from "./reducers/reducers--submission-api";
+import { dragNDropReducer } from "./reducers/reducer--dragNDrop";
+import { appReducer } from "./reducers/reducer--app";
+import { dragNDropFormReducer } from "./reducers/reducer--dragNDropForm";
+import { submissionReducer } from "./reducers/reducer--submission";
+import { formReducer } from "./reducers/reducer--form";
 
 const reducer = combineReducers({
-  dragNDrop: dragNDropReducer,
   app: appReducer,
+  dragNDrop: dragNDropReducer,
+  dragNDropForm: dragNDropFormReducer,
   form: formReducer,
-  save: saveFormReducer,
-  update: updateFormReducer,
-  getForms: getFormsReducer,
-  getForm: getFormReducer,
-  getSubmission: getSubmissionReducer,
+  submission: submissionReducer,
 });
 
 /* const composeEnhancer = compose; */

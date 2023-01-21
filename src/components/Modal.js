@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { closeModal } from "../actions/actions--drag-n-drop";
-import { deleteCol, updateCol } from "../actions/actions--form";
+import { closeModal } from "../actions/action--dragNDrop";
+import { deleteCol, updateCol } from "../actions/action--dragNDropForm";
 
 const Modal = ({ col }) => {
   const [customClassField, setCustomClassField] = useState(
@@ -42,15 +42,27 @@ const Modal = ({ col }) => {
     let values = {};
     values = getFieldType(input);
     values["label"] = label;
-    values["custom_class_field"] = customClassField
-      .split(",")
-      .map((element) => element.trim());
-    values["custom_class_label"] = customClassLabel
-      .split(",")
-      .map((element) => element.trim());
-    values["custom_class_input"] = customClassInput
-      .split(",")
-      .map((element) => element.trim());
+    values["custom_class_field"] = customClassField.split(",").map((element) =>
+      element
+        .trim()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+    );
+    values["custom_class_label"] = customClassLabel.split(",").map((element) =>
+      element
+        .trim()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+    );
+    values["custom_class_input"] = customClassInput.split(",").map((element) =>
+      element
+        .trim()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+    );
     values["placeholder"] = placeholder;
     values["default_value"] = defaultValue;
     values["options"] = options;
@@ -127,7 +139,7 @@ const Modal = ({ col }) => {
 
   useEffect(() => {
     return () => {};
-  }, [options]);
+  }, [input, options]);
 
   return (
     <div className="ygrek_form--modal-overlay">
@@ -139,7 +151,7 @@ const Modal = ({ col }) => {
         <div className="ygrek_form--modal-body">
           <div className="ygrek_form--form_group">
             <div className="ygrek_form--form_input ygrek_form--col-6 ygrek_form--input-text">
-              <label>Classes CSS (Formulaire)</label>
+              <label>Classes CSS (Champ)</label>
               <input
                 type="text"
                 value={customClassField}
@@ -222,38 +234,42 @@ const Modal = ({ col }) => {
               <p></p>
             </div>
           </div>
-          <div className="ygrek_form--form_group ygrek_form--form_group--options">
-            <div className="ygrek_form--form_input ygrek_form--col-6 ">
-              <label>Options</label>
-              <input
-                type="text"
-                value={optionLabel}
-                onChange={(e) => setOptionLabel(e.target.value)}
-                placeholder="Titre"
-              />
-              <p></p>
+          {input === "liste" && (
+            <div className="ygrek_form--form_group ygrek_form--form_group--options">
+              <div className="ygrek_form--form_input ygrek_form--col-6 ">
+                <label>Options</label>
+                <input
+                  type="text"
+                  value={optionLabel}
+                  onChange={(e) => setOptionLabel(e.target.value)}
+                  placeholder="Titre"
+                />
+                <p></p>
+              </div>
+              <div className="ygrek_form--form_input">
+                <label></label>
+                <input
+                  type="text"
+                  value={optionValue}
+                  onChange={(e) => setOptionValue(e.target.value)}
+                  placeholder="Valeur"
+                />
+                <p></p>
+              </div>
+              <button type="button" onClick={addOptionHandler}>
+                +
+              </button>
             </div>
-            <div className="ygrek_form--form_input">
-              <label></label>
-              <input
-                type="text"
-                value={optionValue}
-                onChange={(e) => setOptionValue(e.target.value)}
-                placeholder="Valeur"
-              />
-              <p></p>
+          )}
+          {input === "liste" && (
+            <div className="ygrek_form--form_group ygrek_form--form_group--options_container">
+              <div className="ygrek_form--form_input ygrek_form--col-12">
+                {options.map((option, i) => (
+                  <span key={i}>{option.label}</span>
+                ))}
+              </div>
             </div>
-            <button type="button" onClick={addOptionHandler}>
-              +
-            </button>
-          </div>
-          <div className="ygrek_form--form_group ygrek_form--form_group--options_container">
-            <div className="ygrek_form--form_input ygrek_form--col-12">
-              {options.map((option, i) => (
-                <span key={i}>{option.label}</span>
-              ))}
-            </div>
-          </div>
+          )}
         </div>
         <div className="ygrek_form--modal-footer">
           <button onClick={onSaveHandler}>Sauvegarder</button>

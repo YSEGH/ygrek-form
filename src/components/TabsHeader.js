@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { setPage, setParams } from "../actions/actions--app";
+import { setPage, setParams } from "../actions/action--app";
 
 const TabsHeader = () => {
   const dispatch = useDispatch();

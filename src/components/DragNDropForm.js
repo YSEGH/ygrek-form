@@ -3,15 +3,17 @@ import { v4 as uuid } from "uuid";
 import { useDispatch, useSelector } from "react-redux";
 import DragNDropRow from "./DragNDropRow";
 import Modal from "./Modal";
-import { addRow } from "../actions/actions--form";
+import { addRow } from "../actions/action--dragNDropForm";
 
 const DragNDropForm = () => {
   const dispatch = useDispatch();
 
+  const { forms } = useSelector((state) => state.form);
+
   const { modal, active_col, dragging } = useSelector(
     (state) => state.dragNDrop
   );
-  const { rows } = useSelector((state) => state.form);
+  const { rows } = useSelector((state) => state.dragNDropForm);
 
   const addRowHandler = () => {
     let row_index = rows.length;
@@ -20,6 +22,7 @@ const DragNDropForm = () => {
   };
 
   useEffect(() => {
+    console.log(forms);
     return () => {};
   }, [rows]);
 

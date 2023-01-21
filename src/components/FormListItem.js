@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
-import { setParams } from "../actions/actions--app";
+import { setParams } from "../actions/action--app";
+import { deleteForm } from "../actions/action--form";
 
 const FormListItem = ({ form }) => {
   const dispatch = useDispatch();
@@ -9,9 +10,9 @@ const FormListItem = ({ form }) => {
     dispatch(setParams({ page: target, id: form.id }));
   };
 
-  useEffect(() => {
-    return () => {};
-  }, []);
+  const deleteHandler = () => {
+    dispatch(deleteForm({ id: form.id }));
+  };
 
   return (
     <div className="list--item">
@@ -22,7 +23,7 @@ const FormListItem = ({ form }) => {
       <div className="list--item--footer">
         <button>Soumissions</button>
         <button onClick={() => editHandler("ajouter")}>Modifier</button>
-        <button>Supprimer</button>
+        <button onClick={() => deleteHandler()}>Supprimer</button>
       </div>
     </div>
   );

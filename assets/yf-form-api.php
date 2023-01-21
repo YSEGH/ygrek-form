@@ -59,6 +59,20 @@ if (!class_exists('YF_form_api')) :
                     'callback' => array($this, 'update_form')
                 )
             );
+            register_rest_route(
+                'yf-form/form',
+                '/delete',
+                array(
+                    'methods' => 'DELETE',
+                    'callback' => array($this, 'delete_form'),
+                    'args' => [
+                        'id' => [
+                            'required' => false,
+                            'type'     => 'number',
+                        ],
+                    ],
+                )
+            );
         }
 
         function add_form(WP_REST_Request $request)
@@ -123,6 +137,26 @@ if (!class_exists('YF_form_api')) :
                 return new WP_REST_Response(
                     [
                         'message' => 'Le formulaire a été modifié avec succès.',
+                    ],
+                    200
+                );
+            } catch (Exception $e) {
+                return
+                    new WP_REST_Response(
+                        $e->getMessage(),
+                        500
+                    );
+            }
+        }
+
+        function delete_form(WP_REST_Request $request)
+        {
+            $arg = $request->get_params();
+            try {
+                $this->form->delete($arg);
+                return new WP_REST_Response(
+                    [
+                        'message' => "Le formulaire a été supprimée avec succès."
                     ],
                     200
                 );

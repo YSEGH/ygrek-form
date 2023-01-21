@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setForm } from "./actions--form";
+import { setForm } from "./action--dragNDropForm";
 const baseURL = window.location.origin + "/monouebsite/wp-json/yf-form/form";
 
 const saveForm = (data) => async (dispatch) => {
@@ -27,35 +27,38 @@ const updateForm = (data) => async (dispatch) => {
   }
 };
 
-const getForms = () => async (dispatch) => {
-  dispatch({ type: "GET_FORMS_REQUEST" });
-  try {
-    const response = await axios.get(baseURL + "/get");
-    dispatch({
-      type: "GET_FORMS_SUCCESS",
-      data: response.data.forms,
-      message: response.data.message,
-    });
-  } catch (error) {
-    console.log("GET_FORMS_ERROR", error);
-    dispatch({ type: "GET_FORMS_ERROR", message: error.response });
-  }
-};
-
-const getForm = (data) => async (dispatch) => {
+const getForm = (data, dragNDrop) => async (dispatch) => {
   let params = new URLSearchParams(data);
   dispatch({ type: "GET_FORM_REQUEST" });
   try {
     const response = await axios.get(baseURL + "/get", { params });
     dispatch({
       type: "GET_FORM_SUCCESS",
-      form: response.data.forms[0],
+      forms: response.data.forms,
       message: response.data.message,
     });
-    dispatch(setForm(response.data.forms[0]));
+    if (dragNDrop) {
+      dispatch(setForm(response.data.forms[0]));
+    }
   } catch (error) {
     console.log("GET_FORM_ERROR", error);
     dispatch({ type: "GET_FORM_ERROR", message: error.response });
   }
 };
-export { saveForm, updateForm, getForms, getForm };
+
+const deleteForm = (data) => async (dispatch) => {
+  let params = new URLSearchParams(data);
+  dispatch({ type: "DELETE_FORM_REQUEST" });
+  try {
+    const response = await axios.delete(baseURL + "/delete", { params });
+    dispatch({
+      type: "DELETE_FORM_SUCCESS",
+      id: data.id,
+      message: response.data.message,
+    });
+  } catch (error) {
+    console.log("DELETE_FORM_ERROR", error);
+    dispatch({ type: "DELETE_FORM_ERROR", message: error.response });
+  }
+};
+export { saveForm, updateForm, getForm, deleteForm };
