@@ -26,6 +26,7 @@ if (!class_exists('YF_submission_tables')) :
             $queries = [
                 "CREATE TABLE $submission_table (
                     `id` mediumint(9) NOT NULL AUTO_INCREMENT,
+                    `form_title` longtext NOT NULL,
                     `form_id` mediumint(9) NOT NULL,
                     `timestamp` bigint(20) unsigned NOT NULL,
                     `data` longtext NOT NULL,

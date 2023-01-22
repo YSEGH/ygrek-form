@@ -18,6 +18,7 @@ const Modal = ({ col }) => {
   const [label, setLabel] = useState(col.label);
   const [defaultValue, setDefaultValue] = useState(col.default_value);
   const [options, setOptions] = useState(col.options);
+  const [required, setRequired] = useState(col.required);
   const [optionLabel, setOptionLabel] = useState("");
   const [optionValue, setOptionValue] = useState("");
   const [error, setError] = useState("");
@@ -66,7 +67,8 @@ const Modal = ({ col }) => {
     values["placeholder"] = placeholder;
     values["default_value"] = defaultValue;
     values["options"] = options;
-
+    values["required"] = required;
+    console.log(values);
     dispatch(
       updateCol({
         col_index: col.col_index,
@@ -94,11 +96,11 @@ const Modal = ({ col }) => {
         values["input_element"] = "input";
         values["input_type"] = "tel";
         break;
-      case "color":
+      case "couleur":
         values["input_element"] = "input";
         values["input_type"] = "color";
         break;
-      case "file":
+      case "fichier":
         values["input_element"] = "input";
         values["input_type"] = "file";
         break;
@@ -110,7 +112,7 @@ const Modal = ({ col }) => {
         values["input_element"] = "input";
         values["input_type"] = "email";
         break;
-      case "case_a_cocher":
+      case "checkbox":
         values["input_element"] = "input";
         values["input_type"] = "checkbox";
         break;
@@ -159,6 +161,15 @@ const Modal = ({ col }) => {
               />
               <p></p>
             </div>
+            <div className="ygrek_form--form_input ygrek_form--col-4 ygrek_form--input-checkbox">
+              <label>Requis ?</label>
+              <input
+                type="checkbox"
+                checked={required}
+                onChange={(e) => setRequired(e.target.checked)}
+              />
+              <p></p>
+            </div>
           </div>
           <div className="ygrek_form--form_group">
             <div className="ygrek_form--form_input ygrek_form--col-6 ygrek_form--input-text">
@@ -191,13 +202,13 @@ const Modal = ({ col }) => {
                 <option value={"nom"}>Nom</option>
                 <option value={"prenom"}>Prénom</option>
                 <option value={"date"}>Date</option>
-                <option value={"color"}>color</option>
+                <option value={"couleur"}>Couleur</option>
                 <option value={"fichier"}>Fichier</option>
                 <option value={"texte_court"}>Texte court</option>
                 <option value={"liste"}>Liste</option>
                 <option value={"telephone"}>Téléphone</option>
                 <option value={"email"}>Email</option>
-                <option value={"case_a_cocher"}>Case à cocher</option>
+                <option value={"checkbox"}>Case à cocher</option>
                 <option value={"radio"}>Radio</option>
                 <option value={"texte_long"}>Texte long</option>
               </select>
@@ -234,7 +245,7 @@ const Modal = ({ col }) => {
               <p></p>
             </div>
           </div>
-          {input === "liste" && (
+          {(input === "liste" || input === "checkbox" || input === "radio") && (
             <div className="ygrek_form--form_group ygrek_form--form_group--options">
               <div className="ygrek_form--form_input ygrek_form--col-6 ">
                 <label>Options</label>
@@ -261,7 +272,7 @@ const Modal = ({ col }) => {
               </button>
             </div>
           )}
-          {input === "liste" && (
+          {(input === "liste" || input === "checkbox" || input === "radio") && (
             <div className="ygrek_form--form_group ygrek_form--form_group--options_container">
               <div className="ygrek_form--form_input ygrek_form--col-12">
                 {options.map((option, i) => (

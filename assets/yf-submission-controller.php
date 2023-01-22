@@ -48,7 +48,9 @@ if (!class_exists('YF_submission_controller')) :
                 }
             }
             if (!empty($exceptions)) {
-                throw new Exception(json_encode($exceptions), 400);
+                $exception = new Exception('Un problème est survenu lors de la validation des données', 400);
+                $exception->data = $exceptions;
+                throw $exception;
             }
         }
 
@@ -80,6 +82,7 @@ if (!class_exists('YF_submission_controller')) :
                 $wpdb->insert(
                     $submission_table,
                     [
+                        'form_title' => $form['form_title'],
                         'form_id' => $form['form_id'],
                         'timestamp' => $form['timestamp'],
                         'data' => $form['data'],

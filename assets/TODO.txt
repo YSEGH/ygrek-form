@@ -1,7 +1,6 @@
 * La validation du formulaire
 * Le style page admin
-* Les routes delete
 * Envoyer un email à chaque soumission
 * La notification sur le tableau de bord en cas de soumission non lue
 * Page de configuration du module 
-* Modifier l'apparence du formulaire de création en fonction du champ saisis
+* Modifier l'apparence du formulaire du field en fonction du champ saisis

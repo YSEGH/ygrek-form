@@ -3,7 +3,11 @@
 @import url(./form.css);
 @import url(./modal.css);
 @import url(./page--form.css);
+@import url(./submission-list--item.css);
 
+#ygrek-form-react-root {
+  padding: 2rem;
+}
 .hidden {
   display: none;
 }

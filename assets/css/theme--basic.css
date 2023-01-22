@@ -11,43 +11,168 @@
   justify-content: space-between;
   flex-wrap: wrap;
 }
+.ygrek_form.basic .ygrek_form--row .ygrek_form--col {
+  height: auto;
+  padding: 0 0.25rem;
+}
 /* Custom form field */
 .ygrek_form.basic .ygrek_form--row .ygrek_form--col .ygrek_form--element {
   width: 100%;
-  height: 90px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
 }
-/* Label */
-.ygrek_form.basic .ygrek_form--row .ygrek_form--col .ygrek_form--element label {
+/* Form element - Textarea - Text - Date - Tel */
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--textarea-,
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-text,
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-tel,
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-date,
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-email {
+  height: 90px;
+}
+
+/* Title All */
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element
+  .ygrek_form--field-title {
+  height: 30px;
+  font-weight: 400;
+  font-size: 16px;
   transition: 0.25s;
-  transform: translateY(20px);
   color: #777771;
 }
 .ygrek_form.basic
   .ygrek_form--row
   .ygrek_form--col
   .ygrek_form--element.is_active
-  label {
-  transform: translateY(-5px);
+  .ygrek_form--field-title {
   font-size: 12px;
   color: #a635ff;
-  font-weight: 500;
 }
 .ygrek_form.basic
   .ygrek_form--row
   .ygrek_form--col
   .ygrek_form--element.is_error
-  label {
+  .ygrek_form--field-title {
   color: #ff5a35;
 }
+/* Title Type Text - Phone - Email - Textarea */
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-text
+  .ygrek_form--field-title,
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-email
+  .ygrek_form--field-title,
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-tel
+  .ygrek_form--field-title,
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--textarea-
+  .ygrek_form--field-title {
+  transform: translateY(35px);
+}
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-text.is_active
+  .ygrek_form--field-title,
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-email.is_active
+  .ygrek_form--field-title,
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-tel.is_active
+  .ygrek_form--field-title,
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--textarea-.is_active
+  .ygrek_form--field-title {
+  font-size: 12px;
+  font-weight: 500;
+  transform: translateY(15px);
+}
+/*  Title Type Date - Color - File - radio - checkbox */
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-file
+  .ygrek_form--field-title,
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-radio
+  .ygrek_form--field-title,
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-checkbox
+  .ygrek_form--field-title {
+  font-size: 12px;
+  font-weight: 500;
+  transform: translateY(20px);
+}
+/* Title - Date */
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-date
+  .ygrek_form--field-title {
+  font-size: 12px;
+  font-weight: 500;
+  transform: translateY(15px);
+}
+/* Title - Date - Color - Select */
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-color
+  .ygrek_form--field-title,
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--select-
+  .ygrek_form--field-title {
+  font-size: 12px;
+  font-weight: 500;
+  transform: translateY(20px);
+}
+/* Field wrapper - All */
 .ygrek_form.basic
   .ygrek_form--row
   .ygrek_form--col
   .ygrek_form--element
   .ygrek_form--field-wrapper {
+  height: 30px;
   position: relative;
   width: 100%;
 }
@@ -93,12 +218,138 @@
   left: 0;
   background-color: #ff5a35;
 }
+/* Field wrapper - Radio */
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-radio
+  .ygrek_form--field-wrapper {
+  height: auto;
+}
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-radio
+  .ygrek_form--field-wrapper:hover::after,
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-radio.has_value
+  .ygrek_form--field-wrapper::after,
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-radio.is_active
+  .ygrek_form--field-wrapper::after {
+  display: none;
+}
+/* Field wrapper - Checkbox */
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-checkbox
+  .ygrek_form--field-wrapper {
+  height: auto;
+}
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-checkbox
+  .ygrek_form--field-wrapper:hover::after,
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-checkbox.has_value
+  .ygrek_form--field-wrapper::after,
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-checkbox.is_active
+  .ygrek_form--field-wrapper::after {
+  display: none;
+}
+/* Field wrapper - File */
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-file
+  .ygrek_form--field-wrapper {
+  height: auto;
+}
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-file
+  .ygrek_form--field-wrapper:hover::after,
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-file.has_value
+  .ygrek_form--field-wrapper::after,
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-file.is_active
+  .ygrek_form--field-wrapper::after {
+  display: none;
+}
+/* Field wrapper - Color */
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-color
+  .ygrek_form--field-wrapper:hover::after,
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-color.has_value
+  .ygrek_form--field-wrapper::after,
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-color.is_active
+  .ygrek_form--field-wrapper::after {
+  display: none;
+}
+/* Label - All */
+/* Label - File */
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-file
+  .ygrek_form--field-wrapper
+  label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 30px;
+  cursor: pointer;
+  background-color: #a635ff;
+  color: #ffffff;
+  font-weight: 400;
+  width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+}
+/* Input - All */
 .ygrek_form.basic
   .ygrek_form--row
   .ygrek_form--col
   .ygrek_form--element
   .ygrek_form--field-wrapper
   .ygrek_form--field {
+  height: 30px;
+  width: 100%;
+  color: #777771;
+}
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element
+  .ygrek_form--field-wrapper
+  .ygrek_form--field::placeholder {
   width: 100%;
 }
 .ygrek_form.basic
@@ -106,27 +357,96 @@
   .ygrek_form--col
   .ygrek_form--element
   .ygrek_form--field-wrapper
-  .ygrek_form--field.ygrek_form--field-input {
+  .ygrek_form--field {
   border: none;
   border-bottom: 1px solid black;
   outline: none;
   width: 100%;
   background-color: transparent;
   padding: 0;
-  padding-bottom: 8px;
 }
+/* Input - Radio */
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-radio
+  .ygrek_form--field-wrapper
+  .ygrek_form--radio-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-radio
+  .ygrek_form--field-wrapper
+  .ygrek_form--radio-wrapper
+  .ygrek_form--field {
+  width: 10px;
+  height: 10px;
+  margin-right: 1rem;
+}
+/* Input - Checkbox */
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-checkbox
+  .ygrek_form--field-wrapper
+  .ygrek_form--radio-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-checkbox
+  .ygrek_form--field-wrapper
+  .ygrek_form--radio-wrapper
+  .ygrek_form--field {
+  width: 10px;
+  height: 10px;
+  margin-right: 1rem;
+}
+/* Input - File */
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-file
+  .ygrek_form--field-wrapper
+  .ygrek_form--field {
+  color: #777771;
+  border: none;
+  width: fit-content;
+  cursor: pointer;
+}
+/* Input - Date */
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-date
+  .ygrek_form--field-wrapper
+  .ygrek_form--field {
+  cursor: pointer;
+}
+/* Input - Color */
+.ygrek_form.basic
+  .ygrek_form--row
+  .ygrek_form--col
+  .ygrek_form--element.element--input-color
+  .ygrek_form--field-wrapper
+  .ygrek_form--field {
+  cursor: pointer;
+  border: none;
+}
+/* Placeholder */
 .ygrek_form.basic
   .ygrek_form--row
   .ygrek_form--col
   .ygrek_form--element.is_active
   .ygrek_form--field-wrapper
-  .ygrek_form--field.ygrek_form--field-input,
-.ygrek_form.basic
-  .ygrek_form--row
-  .ygrek_form--col
-  .ygrek_form--element.has_value
-  .ygrek_form--field-wrapper
-  .ygrek_form--field.ygrek_form--field-input {
+  .ygrek_form--field {
   border-color: #a635ff;
 }
 .ygrek_form.basic
@@ -134,7 +454,7 @@
   .ygrek_form--col
   .ygrek_form--element.is_error
   .ygrek_form--field-wrapper
-  .ygrek_form--field.ygrek_form--field-input {
+  .ygrek_form--field {
   border-color: #ff5a35;
 }
 .ygrek_form.basic
@@ -142,15 +462,15 @@
   .ygrek_form--col
   .ygrek_form--element
   .ygrek_form--field-wrapper
-  .ygrek_form--field.ygrek_form--field-input::placeholder {
+  .ygrek_form--field::placeholder {
   color: transparent;
 }
 .ygrek_form.basic
   .ygrek_form--row
   .ygrek_form--col
-  .ygrek_form--element.is_active
+  .ygrek_form--element
   .ygrek_form--field-wrapper
-  .ygrek_form--field.ygrek_form--field-input::placeholder {
+  .ygrek_form--field {
   color: #777771;
 }
 
@@ -160,7 +480,7 @@
   .ygrek_form--col
   .ygrek_form--element
   .ygrek_form--error-message {
-  margin-top: 6px;
+  height: 30px;
   font-size: 12px;
 }
 .ygrek_form.basic
@@ -170,4 +490,5 @@
   .ygrek_form--error-message
   p {
   color: #ff5a35;
+  margin-bottom: 0;
 }

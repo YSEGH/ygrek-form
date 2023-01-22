@@ -1,4 +1,13 @@
 jQuery(function ($) {
+  $(".ygrek_form--field").on("input", function () {
+    if ($(this).parents(".ygrek_form--element").hasClass("is_error")) {
+      $(this).parents(".ygrek_form--element").removeClass("is_error");
+      $(this)
+        .parents(".ygrek_form--element")
+        .find(".ygrek_form--error-message p")
+        .remove();
+    }
+  });
   $(".ygrek_form--field").focus(function () {
     $(this).parents(".ygrek_form--element").addClass("is_active");
   });

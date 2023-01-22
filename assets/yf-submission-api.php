@@ -74,6 +74,7 @@ if (!class_exists('YF_submission_api')) :
         function add_submission(WP_REST_Request $request)
         {
             $form = [
+                'form_title' => $request['form_title'],
                 'form_id' => $request['form_id'],
                 'timestamp' => $request['timestamp'],
                 'data' => $request['data'],
@@ -88,10 +89,12 @@ if (!class_exists('YF_submission_api')) :
                     200
                 );
             } catch (Exception $e) {
-                $error = json_decode($e->getMessage());
                 return
                     new WP_REST_Response(
-                        $error,
+                        [
+                            'message' => $e->getMessage(),
+                            'data' => $e->data,
+                        ],
                         $e->getCode()
                     );
             }

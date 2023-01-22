@@ -1,0 +1,51 @@
+.submission-list--item {
+  cursor: pointer;
+  margin: 1rem 0;
+  border-radius: 5px;
+  width: 100%;
+  background-color: #ffffff;
+  height: 70px;
+  overflow: hidden;
+  transition: 0.25s;
+}
+.submission-list--item.is_active {
+  height: auto;
+}
+.submission-list--item-header {
+  pointer-events: none;
+  padding: 0 1.5rem;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.submission-list--item-header h2,
+.submission-list--item-header h4 {
+  margin: 0;
+}
+.submission-list--item-header h2 span {
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.submission-list--item-content {
+  padding: 0.5rem 1.5rem 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.item-content--input {
+  min-width: 10rem;
+  max-width: 50%;
+  margin: 0.5rem 1rem;
+  background-color: azure;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.item-content--input * {
+  margin: 0;
+  padding: 0.5rem 1rem;
+}
